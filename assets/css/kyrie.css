@@ -1,0 +1,102 @@
+/* =========================
+   Kyrie – Clean Table Stats
+   ========================= */
+:root{
+  --hdr-h: 70px;
+  --gap: 22px;
+  --ink: #fff;
+  --panel: rgba(0,0,0,.50);
+  --accent: #4db3ff;   /* Mavs Blue */
+}
+
+/* Reset & base */
+*{ box-sizing: border-box; }
+html,body{
+  margin:0; height:100%;
+  font-family: system-ui,-apple-system,"Segoe UI",Roboto,Meiryo,sans-serif;
+  color: var(--ink);
+}
+
+/* Header */
+header{
+  position: fixed; inset: 0 0 auto 0; height: var(--hdr-h);
+  z-index: 10; display:flex; align-items:center;
+  background: rgba(8,20,40,.78); backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255,255,255,.12);
+}
+.header-bar{ width:100%; padding:0 20px; display:flex; justify-content:space-between; align-items:center; }
+
+/* Background */
+body.team--mavs{ background:#0d1a2e; }
+body.team--mavs::before{
+  content:""; position:fixed; inset:0; z-index:-1;
+  background: url("../img/mavs-arena.jpg") center/cover no-repeat;
+  box-shadow: inset 0 0 0 9999px rgba(0,50,110,.45);
+}
+
+/* Layout */
+main.container{ max-width:1200px; margin: calc(var(--hdr-h) + 16px) auto 48px; padding: 0 16px; }
+
+/* ===== Top: Big Photo + Details ===== */
+.hero{
+  display:grid; grid-template-columns: 420px 1fr; gap: var(--gap);
+}
+.photo{
+  position: sticky; top: calc(var(--hdr-h) + 16px);
+  height: 75vh; margin:0;
+  background: var(--panel); border-radius: 16px; overflow:hidden;
+  box-shadow: 0 14px 30px rgba(0,0,0,.32);
+}
+.photo img{ width:100%; height:100%; object-fit: cover; }
+
+.about{
+  background: var(--panel); border-radius:16px; padding:20px 20px 22px;
+  box-shadow: 0 14px 30px rgba(0,0,0,.32);
+}
+.name{ margin:2px 0 0; font-size: clamp(26px,3.2vw,36px); font-weight:900; }
+.num{ color: var(--accent); margin-left:8px; }
+.sub{ opacity:.92; margin:6px 0 12px; }
+
+.facts{
+  display:grid; grid-template-columns: 120px 1fr; gap:10px;
+  padding-top:10px; border-top:1px solid rgba(255,255,255,.18);  /* ← 黒実線をやさしい白半透過に */
+}
+.facts .k{ opacity:.85; }
+.career{ margin-top:14px; }
+.career h2{ margin:0 0 8px; font-size:18px; }
+.career ul{ margin:0; padding-left:18px; line-height:1.7; }
+
+/* ===== Bottom: WIDE Stats Table ===== */
+.stats{ margin-top: 28px; }
+.stats h2{
+  margin: 0 0 16px; font-size: 22px; font-weight: 900;
+  text-align: center; color: #fff;
+}
+
+/* Table fills full width */
+.stat-table{
+  width:100%; border-collapse: collapse;
+  background: rgba(255,255,255,.96); color:#0e1530;
+  border-radius:16px; overflow:hidden;          /* keeps rounded corners */
+  box-shadow: 0 14px 32px rgba(0,0,0,.30);
+  font-size: 20px;  
+  
+                               /* bigger numbers */
+}
+.stat-table th,
+.stat-table td{
+  padding: 18px 14px; text-align: center;
+  border-bottom: 1px solid rgba(0,0,0,.12);
+}
+.stat-table th{
+  background: rgba(0,0,0,.08);
+  font-weight: 900; font-size: 20px;
+}
+.stat-table tr:last-child td{ border-bottom:none; }
+
+
+.stats{
+    display: flex;
+    text-align: center;
+    margin-top: 50px;
+}

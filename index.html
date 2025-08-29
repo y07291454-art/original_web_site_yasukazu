@@ -1,12 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./assets/css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NBA Teams & Players</title>
+  <link rel="stylesheet" href="./assets/css/style.css"/>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
 <body>
-    <h1>hello</h1>
+  <header>
+    <div class="header-bar">
+      <div class="logo">NBA Teams&Players</div>
+      <div class="icons">
+        <button class="search-btn" aria-label="検索"><i class="fas fa-search"></i></button>
+        <button class="ham" aria-label="メニュー"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ★ 背景CSSを当てるためのクラス -->
+  <main class="main">
+    <div class="home-mappu" aria-label="マップから選ぶ">
+    <div class="map-frame">
+
+      <div class="map">
+        <img src="assets/img/amerika-tizu.jpg" alt="アメリカ地図">
+        
+        <!-- ===== West ===== -->
+        <div class="pin left pin-blazers">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/trailblazers.webp" alt="Portland Trail Blazers"></span>
+        </div>
+
+        <div class="pin left pin-warriors">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/warriors.webp" alt="Golden State Warriors"></span>
+        </div>
+        
+        <div class="pin left pin-kings">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/kings.webp" alt="Sacramento Kings"></span>
+        </div>
+        
+        <div class="pin left pin-lakers">
+          <span class="dot"></span><span class="line"></span>
+          <a href="lakers.html" class="label"><img src="assets/img/lakers.webp" alt="Los Angeles Lakers"></a>
+        </div>
+
+        <div class="pin left pin-clippers">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/clippers250110.webp" alt="LA Clippers"></span>
+        </div>
+
+        <div class="pin left pin-suns">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/suns.webp" alt="Phoenix Suns"></span>
+        </div>
+        
+        <div class="pin left pin-jazz">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/jazz250110.webp" alt="Utah Jazz"></span>
+        </div>
+
+        <div class="pin left pin-nuggets">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/nuggets.webp" alt="Denver Nuggets"></span>
+        </div>
+        
+        <div class="pin left pin-thunder">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/thunder.webp" alt="Oklahoma City Thunder"></span>
+        </div>
+
+        <div class="pin right pin-dallas">
+          <span class="dot"></span><span class="line"></span>
+          <!-- ※ ファイル名が "mavericks.webp" なら直してね -->
+          <a href="dallas.html" class="label"><img src="assets/img/maubericks.webp" alt="Dallas Mavericks"></a>
+        </div>
+
+        <div class="pin left pin-spurs">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/spurs.webp" alt="San Antonio Spurs"></span>
+        </div>
+        
+        <div class="pin right pin-rockets">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/rockets.webp" alt="Houston Rockets"></span>
+        </div>
+
+        <div class="pin right pin-pelicans">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/pelicans.webp" alt="New Orleans Pelicans"></span>
+        </div>
+        
+        <div class="pin right pin-grizzlies">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/grizzlies.webp" alt="Memphis Grizzlies"></span>
+        </div>
+        
+        <div class="pin left pin-timberwolves">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/timberwolves.webp" alt="Minnesota Timberwolves"></span>
+        </div>
+        
+        <!-- ===== East ===== -->
+        <div class="pin right pin-bucks">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/bucks.jpg" alt="Milwaukee Bucks"></span>
+        </div>
+        
+        <div class="pin right pin-bulls">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/bulls.webp" alt="Chicago Bulls"></span>
+        </div>
+        
+        <div class="pin right pin-pacers">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/pacers.webp" alt="Indiana Pacers"></span>
+        </div>
+        
+        <div class="pin right pin-pistons">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/pistons.webp" alt="Detroit Pistons"></span>
+        </div>
+
+        <div class="pin right pin-cavaliers">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/cavaliers.jpg" alt="Cleveland Cavaliers"></span>
+        </div>
+        
+        <div class="pin right pin-wizards">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/wizerds.webp" alt="Washington Wizards"></span>
+        </div>
+
+        <div class="pin right pin-atlanta">
+          <span class="dot"></span><span class="line"></span>
+          <a href="atlanta.html" class="label"><img src="assets/img/hawks.webp" alt="Atlanta Hawks"></a>
+        </div>
+
+        <div class="pin right pin-hornets">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/hornets.webp" alt="Charlotte Hornets"></span>
+        </div>
+        
+        <div class="pin right pin-magic">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/magic.jpg" alt="Orlando Magic"></span>
+        </div>
+        
+        <div class="pin right pin-heat">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/heat.webp" alt="Miami Heat"></span>
+        </div>
+
+        <div class="pin right pin-76ers">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/76ers.webp" alt="Philadelphia 76ers"></span>
+        </div>
+
+        <div class="pin right pin-nets">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/nets250110.webp" alt="Brooklyn Nets"></span>
+        </div>
+
+        <div class="pin right pin-knicks">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/nyk.jpg" alt="New York Knicks"></span>
+        </div>
+        
+        <div class="pin right pin-celtics">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/bos.webp" alt="Boston Celtics"></span>
+        </div>
+        
+        <div class="pin right pin-raptors">
+          <span class="dot"></span><span class="line"></span>
+          <span class="label"><img src="assets/img/raptors250110.webp" alt="Toronto Raptors"></span>
+        </div>
+        
+      </div>  
+      </div> <!-- /.map -->
+    </div>   <!-- /.home-mappu -->
+  </main>
 </body>
 </html>

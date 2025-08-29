@@ -1,3 +1,167 @@
-h1{
-    color: red;
+*{
+    margin: 0;
+    padding: 0;
+}
+
+header{ background:#192d5f; color:#fff; height:70px; }
+.header-bar{ margin:0 auto; height:70px; display:flex; align-items:center; padding:0 16px; }
+.logo{ font-size:28px; font-weight:800; letter-spacing:4px; }
+.icons{ margin-left:auto; display:flex; gap:16px; align-items:center; }
+.search-btn,.ham{ background:none; border:0; color:#fff; font-size:20px; cursor:pointer; }
+.ham{ width:36px; padding:0 8px; }
+.ham span{ display:block; width:26px; height:3px; background:#fff; border-radius:2px; margin:3px 0; }
+
+
+/* ===== 地図の基準 ===== */
+.map{
+  position: relative;
+  margin: 1px auto 0;
+  display: flex;
+  justify-content: center;
+}
+.map > img{
+  width: 68vw;
+  background-color: transparent;
+  mix-blend-mode: multiply;
+  display: block;
+  z-index: 1;
+}
+
+/* ===== ロゴの大きさ（全体で統一） ===== */
+:root {
+  --logo: 60px;   /* ← ここで調整すれば全チームのサイズが変わる */
+}
+
+/* ===== ピンの共通設定 ===== */
+.pin{
+  position:absolute;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+.pin:hover{ transform: translate(-50%, -50%); } /* 親は拡大させない */
+
+/* ラベル（ロゴの入れ物） */
+.pin .label{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width: var(--logo);
+  height: var(--logo);
+  display:block;
+  line-height: 0;
+  background:transparent;
+}
+
+.pin .label img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  background:#fff;
+  padding:2px;
+  box-shadow:0 0 3px rgba(0,0,0,.3);
+  transform: scale(1);
+  transform-origin: center center;
+  transition: transform .18s ease;
+}
+
+
+.pin a.label img:hover {
+  transform: scale(1.15);
+}
+/* West */
+.pin-nuggets      { top: 30%; left: 35%; }  /* Denver Nuggets */
+/* ===== 位置（Denver を基準に再計算） ===== */
+
+/* West */
+.pin-blazers      { top: 14%;  left: 8%; }  /* Portland */
+.pin-warriors     { top: 50.0%; left: 6%; }  /* San Francisco */
+.pin-kings        { top: 44.1%; left: 7.9%; }  /* Sacramento */
+.pin-lakers       { top: 60.4%; left: 10%; }  /* Los Angeles (LAL) */
+.pin-clippers     { top: 60.4%; left: 14%; }  /* Los Angeles (LAC) ←重なり回避 */
+.pin-suns         { top: 63.4%; left: 21%; }  /* Phoenix */
+.pin-jazz         { top: 44%; left: 22%; }  /* Salt Lake City */
+.pin-nuggets      { top: 45%; left: 32.0%; }  /* Denver（基準） */
+.pin-thunder      { top: 63%; left: 47.9%; }  /* Oklahoma City */
+.pin-dallas       { top: 75%; left: 49.0%; }  /* Dallas */
+.pin-spurs        { top: 83%; left: 49%; }  /* San Antonio */
+.pin-rockets      { top: 83%; left: 53%; }  /* Houston */
+.pin-pelicans     { top: 83%; left: 60%; }  /* New Orleans */
+.pin-grizzlies    { top: 60%; left: 60%; }  /* Memphis */
+.pin-timberwolves { top: 20%; left: 50%; }  /* Minneapolis */
+
+
+.pin-bucks      { top:28%; left:63%; }  /* Milwaukee */
+.pin-bulls      { top:39%; left:65%; }  /* Chicago */
+.pin-pacers     { top:47%; left:66%; }  /* Indianapolis */
+.pin-pistons    { top:28%; left:72%; }  /* Detroit */
+.pin-cavaliers  { top:39%; left:74%; }  /* Cleveland */
+
+.pin-wizards    { top:45%; left:84%; }  /* Washington, D.C. */
+.pin-atlanta    { top:63%; left:70%; }  /* Atlanta */
+.pin-hornets    { top:60%; left:80%; }  /* Charlotte */
+.pin-magic      { top:83%; left:80%; }  /* Orlando */
+.pin-heat       { top:90%; left:82%; }  /* Miami */
+
+.pin-76ers      { top:42%; left:88%; }  /* Philadelphia */
+.pin-knicks     { top:32%; left:88%; }  /* New York */
+.pin-nets       { top:36%; left:84%; }  /* Brooklyn */
+.pin-celtics    { top:26%; left:90%; }  /* Boston */
+.pin-raptors    { top:15%; left:72%; }  /* Toronto */
+
+
+/* 全体背景：木目 */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+body {
+  background:
+    repeating-linear-gradient(90deg, #d7b786 0 112px, #caa372 112px 114px),
+    linear-gradient(#daba84, #c79f6e);
+}
+
+/* 額縁：外側だけに付けるので地図やピンのサイズは変わらない */
+.map-frame {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px; /* 額縁の厚み */
+  background: linear-gradient(135deg, #e6d2b5, #c9a971);
+  border: 6px solid #8b6b3f;
+  border-radius: 16px;
+  box-shadow:
+    0 12px 25px rgba(0,0,0,.40),
+    inset 0 0 12px rgba(0,0,0,.25);
+}
+
+/* 地図はそのまま基準面 */
+.map {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.map > img {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #fff;
+  box-shadow: inset 0 0 6px rgba(0,0,0,.2);
+}
+
+/* ピン（座標は今のままでOK） */
+.pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+.pin .label img {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  box-shadow: 0 6px 14px rgba(0,0,0,.35);
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+}
+.pin:hover .label img {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 12px 28px rgba(0,0,0,.5);
+  filter: saturate(1.1);
 }

@@ -1,0 +1,186 @@
+/* ===== ベース ===== */
+*{ box-sizing: border-box; }
+html,body{ height:100%; }
+body{
+  margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif;
+  color:#111;
+  background:#f6f7fb;
+}
+body {
+  /* アリーナ写真を全体背景に */
+  background: url("/assets/img/arena.jpg") no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+}
+
+/* 背景の上に半透明の白レイヤーを重ねる */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,0.6); /* 白の透過: 0.6くらいなら背景うっすら */
+  z-index: -1; /* コンテンツより後ろに配置 */
+}
+
+/* ヘッダー（既存ページと合わせ） */
+header{ background:#192d5f; color:#fff; height:70px; }
+.header-bar{ margin:0 auto; height:70px; display:flex; align-items:center; padding:0 16px; }
+.logo{ font-size:28px; font-weight:800; letter-spacing:4px; }
+.icons{ margin-left:auto; display:flex; gap:16px; align-items:center; }
+.search-btn,.ham{ background:none; border:0; color:#fff; font-size:20px; cursor:pointer; }
+.ham{ width:36px; padding:0 8px; }
+.ham span{ display:block; width:26px; height:3px; background:#fff; border-radius:2px; margin:3px 0; }
+
+/* ===== テーマ（チームカラー） ===== */
+:root{
+  --card:#fff; --muted:#6b7280; --ring:rgba(0,0,0,.06);
+  --primary:#0ea5e9; --accent:#eab308; /* デフォルト（上書きされる） */
+}
+body.team--lakers{ --primary:#552583; --accent:#FDB927; }
+body.team--mavs  { --primary:#0053bc; --accent:#C4CED4; }
+body.team--hawks { --primary:#E03A3E; --accent:#C1D32F; }
+
+/* ===== ヒーロー（タイトル行） ===== */
+.team-header{ max-width:1200px; margin:18px auto 8px; padding:0 16px; display:flex; align-items:center; gap:14px; }
+.team-header .badge{
+  width:72px; height:72px; border-radius:50%; background:#fff; display:grid; place-items:center;
+  box-shadow:0 0 0 4px var(--primary) inset, 0 2px 6px rgba(0,0,0,.08);
+}
+.team-header .badge img{ width:100%; height:100%; padding:10px; object-fit:contain; border-radius:50%; }
+.team-header h1{ font-size:28px; margin:0; }
+.team-header .meta{ color:var(--muted); font-size:14px; }
+
+/* ===== 3カラムレイアウト ===== */
+.main-grid{
+  max-width:1200px; margin:10px auto 40px; padding:0 16px;
+  display:grid; grid-template-columns: 280px 1fr 240px; gap:20px;
+}
+@media (max-width: 1024px){
+  .main-grid{ grid-template-columns: 260px 1fr; }
+  .side{ grid-column: 1 / -1; order: 3; }
+}
+@media (max-width: 720px){
+  .main-grid{ grid-template-columns: 1fr; }
+}
+
+/* 左：基本情報カード */
+.info{
+  background:var(--card); border-radius:14px; box-shadow:0 1px 3px rgba(0,0,0,.07);
+  padding:14px; border:1px solid var(--ring);
+}
+.info h2{ font-size:20px; margin:2px 0 10px; color:#111; }
+.facts{ display:grid; gap:10px; }
+.facts .row{ display:flex; gap:10px; align-items:baseline; }
+.facts .k{ min-width:5.5em; color:var(--muted); font-size:14px; }
+.facts .v{ font-weight:600; }
+
+/* 中央：選手カード */
+.players{
+  background:transparent; display:grid; gap:16px;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+}
+.card{
+  background:var(--card); border-radius:12px; padding:12px; border:1px solid var(--ring);
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+}
+.thumb{
+  width:100%; aspect-ratio: 4/5; border-radius:10px; background:#eef2f7;
+  display:grid; place-items:center; color:var(--muted); font-weight:700;
+}
+.card .name{ margin-top:10px; font-weight:700; }
+.card .pos{ font-size:15px; color:var(--muted); }
+
+.player-card{
+    width: 100%;
+    height: auto;
+    max-width: 180px;
+}
+/* ===== レイアウトを広げる（右サイド非表示） ===== */
+.side { display: none; }           /* 右サイド消す */
+.main-grid {
+  display: grid;
+  grid-template-columns: 260px 1fr; /* 左:情報 / 右:選手 */
+  gap: 24px;
+}
+
+/* ===== 選手カードをたくさん並べる ===== */
+.players {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+/* ===== 画像サイズをカードにフィット ===== */
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 10px;
+  display: grid;
+  gap: 8px;
+}
+
+/* 画像用の枠（thumb / player-card どちらでもOK） */
+.thumb,
+.player-card {
+  width: 100%;
+  aspect-ratio: 1 / 1;   /* 正方形で統一（縦長にしたいなら 3/4 などに変更） */
+  overflow: hidden;
+  border-radius: 10px;
+  background: #eef1f4;   /* 画像がない時の背景 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 中の画像を枠に収める */
+.thumb img,
+.player-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;     /* はみ出す部分をトリミングして収める */
+  display: block;
+}
+
+/* 名前やポジションの体裁（お好み） */
+.name { font-weight: 600; font-size: 14px; }
+.pos  { color: #6b7280;  font-size: 100px; }
+
+
+/* 戻るリンク */
+.back{ max-width:1200px; margin:10px auto 0; padding:0 16px; }
+.back a{ color:var(--primary); text-decoration:none; font-weight:700; }
+.back a:hover{ text-decoration:underline; }
+/* ===== 左下の空白をカードで埋める設定（上書き） ===== */
+
+/* メイン：左260px + 右はカード3列。隙間は前の行から優先して詰める */
+.main-grid{
+  grid-template-columns: 275px repeat(3, minmax(160px, 1fr));
+  grid-auto-flow: row dense;
+}
+
+/* 左の情報は常に1列目に固定 */
+.main-grid > .info{
+  grid-column: 1;
+}
+
+/* .players を“見えないラッパー”にして、子(.card)を
+   .main-gridの直下にいるかのように自動配置させる */
+.players{
+  display: contents;
+}
+
+/* 各カードは自動で最初の空きマスへ落ちる（指定不要だが明示） */
+.card{ grid-column: auto; }
+
+/* 画像は縦長で統一（好みで 3/4 や 4/5 に） */
+.thumb,.player-card{ aspect-ratio: 4/5; }
+
+/* レスポンシブ：幅が狭い時はカード列を減らす */
+@media (max-width: 1200px){
+  .main-grid{ grid-template-columns: 240px repeat(2, minmax(160px,1fr)); }
+}
+@media (max-width: 840px){
+  .main-grid{ grid-template-columns: 1fr; }
+  .main-grid > .info{ grid-column:auto; } /* モバイルは情報→カードの縦並び */
+}
