@@ -26,6 +26,27 @@
   });
   document.addEventListener('keydown', event => { if (event.key === 'Escape') closeMenu(); });
 
+  // Phone maps start with the whole map visible; zoom preserves large tap targets.
+  const mapControls = document.querySelector('[data-map-controls]');
+  if (mapControls) {
+    mapControls.hidden = false;
+    const mapButtons = [...mapControls.querySelectorAll('[data-map-view]')];
+    const mapScroll = document.querySelector('.map-scroll');
+    const help = document.getElementById('map-mobile-help');
+    function setMapView(view) {
+      const zoomed = view === 'zoom';
+      document.body.dataset.mapView = zoomed ? 'zoom' : 'fit';
+      mapButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.mapView === (zoomed ? 'zoom' : 'fit'))));
+      if (mapScroll) {
+        if (!zoomed) mapScroll.scrollLeft = 0;
+        mapScroll.setAttribute('aria-label', zoomed ? 'NBAチームの地図。左右にスワイプしてチームを選べます' : 'NBA全30チームの本拠地');
+      }
+      if (help) help.textContent = zoomed ? '← 左右にスワイプしてチームを選ぶ →' : '下の一覧からもチームを選べます。';
+    }
+    mapButtons.forEach(button => button.addEventListener('click', () => setMapView(button.dataset.mapView)));
+    setMapView('fit');
+  }
+
   const dialog = document.getElementById('site-search');
   const input = document.getElementById('site-search-input');
   const results = document.getElementById('search-results');
@@ -65,11 +86,12 @@
   document.querySelectorAll('[data-open-search]').forEach(button => button.addEventListener('click', () => {
     closeMenu();
     dialog.showModal();
+    document.body.classList.add('search-is-open');
     input.focus();
   }));
   document.querySelector('[data-close-search]')?.addEventListener('click', () => dialog.close());
   dialog?.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
-  dialog?.addEventListener('close', () => { input.value = ''; search(); });
+  dialog?.addEventListener('close', () => { document.body.classList.remove('search-is-open'); input.value = ''; search(); });
   input?.addEventListener('input', search);
 
   // Directory: filtering never changes the actual links or removes team data.
