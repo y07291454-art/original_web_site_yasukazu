@@ -1,188 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NBA Teams & Players</title>
-  <link rel="stylesheet" href="./assets/css/style.css"/>
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NBA全30チームを地図で探す | NBA Teams &amp; Players</title>
+  <meta name="description" content="地図からNBA全30チームと選手を探せるファンサイト。チーム情報・選手プロフィールを紹介します。">
+  <meta name="theme-color" content="#192d5f">
+  <link rel="stylesheet" href="assets/css/style.css"><link rel="stylesheet" href="assets/css/complete.css">
 </head>
-<body>
-  <header>
-    <div class="header-bar">
-      <div class="logo">NBA Teams&Players</div>
-      <div class="icons">
-        <button class="search-btn" aria-label="検索"><i class="fas fa-search"></i></button>
-        <button class="ham" aria-label="メニュー"><span></span><span></span><span></span></button>
-      </div>
-    </div>
-  </header>
-
-  <!-- ★ 背景CSSを当てるためのクラス -->
-  <main class="main">
-    <div class="home-mappu" aria-label="マップから選ぶ">
-    <div class="map-frame">
-
-      <div class="map">
-        <img src="assets/img/amerika-tizu.jpg" alt="アメリカ地図">
-        
-        <!-- ===== West ===== -->
-        <div class="pin left pin-blazers">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/trailblazers.webp" alt="Portland Trail Blazers"></span>
-        </div>
-
-        <div class="pin left pin-warriors">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/warriors.webp" alt="Golden State Warriors"></span>
-        </div>
-        
-        <div class="pin left pin-kings">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/kings.webp" alt="Sacramento Kings"></span>
-        </div>
-        
-        <div class="pin left pin-lakers">
-          <span class="dot"></span><span class="line"></span>
-          <a href="lakers.html" class="label"><img src="assets/img/lakers.webp" alt="Los Angeles Lakers"></a>
-        </div>
-
-        <div class="pin left pin-clippers">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/clippers250110.webp" alt="LA Clippers"></span>
-        </div>
-
-        <div class="pin left pin-suns">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/suns.webp" alt="Phoenix Suns"></span>
-        </div>
-        
-        <div class="pin left pin-jazz">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/jazz250110.webp" alt="Utah Jazz"></span>
-        </div>
-
-        <div class="pin left pin-nuggets">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/nuggets.webp" alt="Denver Nuggets"></span>
-        </div>
-        
-        <div class="pin left pin-thunder">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/thunder.webp" alt="Oklahoma City Thunder"></span>
-        </div>
-
-        <div class="pin right pin-dallas">
-          <span class="dot"></span><span class="line"></span>
-          <!-- ※ ファイル名が "mavericks.webp" なら直してね -->
-          <a href="dallas.html" class="label"><img src="assets/img/maubericks.webp" alt="Dallas Mavericks"></a>
-        </div>
-
-        <div class="pin left pin-spurs">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/spurs.webp" alt="San Antonio Spurs"></span>
-        </div>
-        
-        <div class="pin right pin-rockets">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/rockets.webp" alt="Houston Rockets"></span>
-        </div>
-
-        <div class="pin right pin-pelicans">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/pelicans.webp" alt="New Orleans Pelicans"></span>
-        </div>
-        
-        <div class="pin right pin-grizzlies">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/grizzlies.webp" alt="Memphis Grizzlies"></span>
-        </div>
-        
-        <div class="pin left pin-timberwolves">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/timberwolves.webp" alt="Minnesota Timberwolves"></span>
-        </div>
-        
-        <!-- ===== East ===== -->
-        <div class="pin right pin-bucks">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/bucks.jpg" alt="Milwaukee Bucks"></span>
-        </div>
-        
-        <div class="pin right pin-bulls">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/bulls.webp" alt="Chicago Bulls"></span>
-        </div>
-        
-        <div class="pin right pin-pacers">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/pacers.webp" alt="Indiana Pacers"></span>
-        </div>
-        
-        <div class="pin right pin-pistons">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/pistons.webp" alt="Detroit Pistons"></span>
-        </div>
-
-        <div class="pin right pin-cavaliers">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/cavaliers.jpg" alt="Cleveland Cavaliers"></span>
-        </div>
-        
-        <div class="pin right pin-wizards">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/wizerds.webp" alt="Washington Wizards"></span>
-        </div>
-
-        <div class="pin right pin-atlanta">
-          <span class="dot"></span><span class="line"></span>
-          <a href="atlanta.html" class="label"><img src="assets/img/hawks.webp" alt="Atlanta Hawks"></a>
-        </div>
-
-        <div class="pin right pin-hornets">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/hornets.webp" alt="Charlotte Hornets"></span>
-        </div>
-        
-        <div class="pin right pin-magic">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/magic.jpg" alt="Orlando Magic"></span>
-        </div>
-        
-        <div class="pin right pin-heat">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/heat.webp" alt="Miami Heat"></span>
-        </div>
-
-        <div class="pin right pin-76ers">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/76ers.webp" alt="Philadelphia 76ers"></span>
-        </div>
-
-        <div class="pin right pin-nets">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/nets250110.webp" alt="Brooklyn Nets"></span>
-        </div>
-
-        <div class="pin right pin-knicks">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/nyk.jpg" alt="New York Knicks"></span>
-        </div>
-        
-        <div class="pin right pin-celtics">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/bos.webp" alt="Boston Celtics"></span>
-        </div>
-        
-        <div class="pin right pin-raptors">
-          <span class="dot"></span><span class="line"></span>
-          <span class="label"><img src="assets/img/raptors250110.webp" alt="Toronto Raptors"></span>
-        </div>
-        
-      </div>  
-      </div> <!-- /.map -->
-    </div>   <!-- /.home-mappu -->
+<body class="home-page">
+  <a class="skip-link" href="#main">本文へスキップ</a>
+  <header class="site-header"><div class="header-bar">
+    <a class="logo" href="index.html" aria-label="NBA Teams & Players ホーム">NBA Teams<span class="amp">&amp;</span>Players</a>
+    <nav class="header-links" aria-label="メインナビゲーション"><a href="index.html" aria-current="page">マップ</a><a href="all-teams.html">全30チーム</a></nav>
+    <div class="icons"><button class="icon-button" type="button" data-open-search aria-label="チーム・選手を検索"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button><button class="icon-button menu-button" type="button" data-menu-toggle aria-label="メニュー" aria-expanded="false" aria-controls="mobile-menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button></div>
+  </div><nav class="mobile-menu" id="mobile-menu" aria-label="モバイルナビゲーション" hidden><a href="index.html">マップ</a><a href="all-teams.html">全30チーム</a></nav></header>
+  <main id="main">
+    <section class="home-intro page-wrap"><div><div class="eyebrow">NBA · 30 TEAMS</div><h1>地図から、好きなチームへ。</h1><p>ロゴを選んで、チーム情報と選手をチェック。</p></div><a class="text-link" href="all-teams.html">全30チームを一覧で見る <span aria-hidden="true">→</span></a></section>
+    <section class="home-mappu" aria-label="マップからチームを選ぶ"><div class="map-frame"><div class="map-scroll" tabindex="0" role="region" aria-label="NBAチームの地図。スマートフォンでは左右にスクロールできます"><div class="map"><img src="assets/img/amerika-tizu.jpg" alt="アメリカ合衆国の地図。本拠地の位置は概略です" width="7306" height="4548">
+          <div class="pin pin-blazers"><a class="label" href="blazers.html" data-label="ポートランド・トレイルブレイザーズ" aria-label="ポートランド・トレイルブレイザーズのチームページ"><img src="assets/img/trailblazers.webp" alt="Portland Trail Blazers" width="52" height="52"></a></div>
+          <div class="pin pin-warriors"><a class="label" href="warriors.html" data-label="ゴールデンステイト・ウォリアーズ" aria-label="ゴールデンステイト・ウォリアーズのチームページ"><img src="assets/img/warriors.webp" alt="Golden State Warriors" width="52" height="52"></a></div>
+          <div class="pin pin-kings"><a class="label" href="kings.html" data-label="サクラメント・キングス" aria-label="サクラメント・キングスのチームページ"><img src="assets/img/kings.webp" alt="Sacramento Kings" width="52" height="52"></a></div>
+          <div class="pin pin-lakers"><a class="label" href="lakers.html" data-label="ロサンゼルス・レイカーズ" aria-label="ロサンゼルス・レイカーズのチームページ"><img src="assets/img/lakers.webp" alt="Los Angeles Lakers" width="52" height="52"></a></div>
+          <div class="pin pin-clippers"><a class="label" href="clippers.html" data-label="ロサンゼルス・クリッパーズ" aria-label="ロサンゼルス・クリッパーズのチームページ"><img src="assets/img/clippers250110.webp" alt="LA Clippers" width="52" height="52"></a></div>
+          <div class="pin pin-suns"><a class="label" href="suns.html" data-label="フェニックス・サンズ" aria-label="フェニックス・サンズのチームページ"><img src="assets/img/suns.webp" alt="Phoenix Suns" width="52" height="52"></a></div>
+          <div class="pin pin-jazz"><a class="label" href="jazz.html" data-label="ユタ・ジャズ" aria-label="ユタ・ジャズのチームページ"><img src="assets/img/jazz250110.webp" alt="Utah Jazz" width="52" height="52"></a></div>
+          <div class="pin pin-nuggets"><a class="label" href="nuggets.html" data-label="デンバー・ナゲッツ" aria-label="デンバー・ナゲッツのチームページ"><img src="assets/img/nuggets.webp" alt="Denver Nuggets" width="52" height="52"></a></div>
+          <div class="pin pin-thunder"><a class="label" href="thunder.html" data-label="オクラホマシティ・サンダー" aria-label="オクラホマシティ・サンダーのチームページ"><img src="assets/img/thunder.webp" alt="Oklahoma City Thunder" width="52" height="52"></a></div>
+          <div class="pin pin-dallas"><a class="label" href="dallas.html" data-label="ダラス・マーベリックス" aria-label="ダラス・マーベリックスのチームページ"><img src="assets/img/maubericks.webp" alt="Dallas Mavericks" width="52" height="52"></a></div>
+          <div class="pin pin-spurs"><a class="label" href="spurs.html" data-label="サンアントニオ・スパーズ" aria-label="サンアントニオ・スパーズのチームページ"><img src="assets/img/spurs.webp" alt="San Antonio Spurs" width="52" height="52"></a></div>
+          <div class="pin pin-rockets"><a class="label" href="rockets.html" data-label="ヒューストン・ロケッツ" aria-label="ヒューストン・ロケッツのチームページ"><img src="assets/img/rockets.webp" alt="Houston Rockets" width="52" height="52"></a></div>
+          <div class="pin pin-pelicans"><a class="label" href="pelicans.html" data-label="ニューオーリンズ・ペリカンズ" aria-label="ニューオーリンズ・ペリカンズのチームページ"><img src="assets/img/pelicans.webp" alt="New Orleans Pelicans" width="52" height="52"></a></div>
+          <div class="pin pin-grizzlies"><a class="label" href="grizzlies.html" data-label="メンフィス・グリズリーズ" aria-label="メンフィス・グリズリーズのチームページ"><img src="assets/img/grizzlies.webp" alt="Memphis Grizzlies" width="52" height="52"></a></div>
+          <div class="pin pin-timberwolves"><a class="label" href="timberwolves.html" data-label="ミネソタ・ティンバーウルブズ" aria-label="ミネソタ・ティンバーウルブズのチームページ"><img src="assets/img/timberwolves.webp" alt="Minnesota Timberwolves" width="52" height="52"></a></div>
+          <div class="pin pin-bucks"><a class="label" href="bucks.html" data-label="ミルウォーキー・バックス" aria-label="ミルウォーキー・バックスのチームページ"><img src="assets/img/bucks.jpg" alt="Milwaukee Bucks" width="52" height="52"></a></div>
+          <div class="pin pin-bulls"><a class="label" href="bulls.html" data-label="シカゴ・ブルズ" aria-label="シカゴ・ブルズのチームページ"><img src="assets/img/bulls.webp" alt="Chicago Bulls" width="52" height="52"></a></div>
+          <div class="pin pin-pacers"><a class="label" href="pacers.html" data-label="インディアナ・ペイサーズ" aria-label="インディアナ・ペイサーズのチームページ"><img src="assets/img/pacers.webp" alt="Indiana Pacers" width="52" height="52"></a></div>
+          <div class="pin pin-pistons"><a class="label" href="pistons.html" data-label="デトロイト・ピストンズ" aria-label="デトロイト・ピストンズのチームページ"><img src="assets/img/pistons.webp" alt="Detroit Pistons" width="52" height="52"></a></div>
+          <div class="pin pin-cavaliers"><a class="label" href="cavaliers.html" data-label="クリーブランド・キャバリアーズ" aria-label="クリーブランド・キャバリアーズのチームページ"><img src="assets/img/cavaliers.jpg" alt="Cleveland Cavaliers" width="52" height="52"></a></div>
+          <div class="pin pin-wizards"><a class="label" href="wizards.html" data-label="ワシントン・ウィザーズ" aria-label="ワシントン・ウィザーズのチームページ"><img src="assets/img/wizerds.webp" alt="Washington Wizards" width="52" height="52"></a></div>
+          <div class="pin pin-atlanta"><a class="label" href="atlanta.html" data-label="アトランタ・ホークス" aria-label="アトランタ・ホークスのチームページ"><img src="assets/img/hawks.webp" alt="Atlanta Hawks" width="52" height="52"></a></div>
+          <div class="pin pin-hornets"><a class="label" href="hornets.html" data-label="シャーロット・ホーネッツ" aria-label="シャーロット・ホーネッツのチームページ"><img src="assets/img/hornets.webp" alt="Charlotte Hornets" width="52" height="52"></a></div>
+          <div class="pin pin-magic"><a class="label" href="magic.html" data-label="オーランド・マジック" aria-label="オーランド・マジックのチームページ"><img src="assets/img/magic.jpg" alt="Orlando Magic" width="52" height="52"></a></div>
+          <div class="pin pin-heat"><a class="label" href="heat.html" data-label="マイアミ・ヒート" aria-label="マイアミ・ヒートのチームページ"><img src="assets/img/heat.webp" alt="Miami Heat" width="52" height="52"></a></div>
+          <div class="pin pin-76ers"><a class="label" href="76ers.html" data-label="フィラデルフィア・セブンティシクサーズ" aria-label="フィラデルフィア・セブンティシクサーズのチームページ"><img src="assets/img/76ers.webp" alt="Philadelphia 76ers" width="52" height="52"></a></div>
+          <div class="pin pin-nets"><a class="label" href="nets.html" data-label="ブルックリン・ネッツ" aria-label="ブルックリン・ネッツのチームページ"><img src="assets/img/nets250110.webp" alt="Brooklyn Nets" width="52" height="52"></a></div>
+          <div class="pin pin-knicks"><a class="label" href="knicks.html" data-label="ニューヨーク・ニックス" aria-label="ニューヨーク・ニックスのチームページ"><img src="assets/img/nyk.jpg" alt="New York Knicks" width="52" height="52"></a></div>
+          <div class="pin pin-celtics"><a class="label" href="celtics.html" data-label="ボストン・セルティックス" aria-label="ボストン・セルティックスのチームページ"><img src="assets/img/bos.webp" alt="Boston Celtics" width="52" height="52"></a></div>
+          <div class="pin pin-raptors"><a class="label" href="raptors.html" data-label="トロント・ラプターズ" aria-label="トロント・ラプターズのチームページ"><img src="assets/img/raptors250110.webp" alt="Toronto Raptors" width="52" height="52"></a></div>
+    </div></div></div><div class="map-caption"><span>全30チームのロゴからページを開けます。</span><span class="map-hint">← 左右にスクロール →</span></div></section>
+    <div class="home-conferences page-wrap"><a class="conference-card" href="all-teams.html?conference=West"><span class="conference-mark">W</span><div><strong>Western Conference</strong><small>ウェスタン · 15チーム</small></div><span class="arrow" aria-hidden="true">→</span></a><a class="conference-card" href="all-teams.html?conference=East"><span class="conference-mark">E</span><div><strong>Eastern Conference</strong><small>イースタン · 15チーム</small></div><span class="arrow" aria-hidden="true">→</span></a></div>
   </main>
+  <footer class="site-footer"><span class="footer-brand">NBA Teams &amp; Players</span><span>選手情報：<a href="https://www.nba.com/players" target="_blank" rel="noopener noreferrer">NBA.com</a> · 2026/10/16取得<br>NBA・各チームの非公式ファンサイト</span></footer>
+  <dialog class="search-dialog" id="site-search" aria-labelledby="search-title"><div class="search-top"><h2 id="search-title">チーム・選手を探す</h2><button class="close-button" type="button" data-close-search aria-label="検索を閉じる">×</button></div><div class="search-field"><label for="site-search-input">チーム名・略称・選手名</label><input id="site-search-input" type="search" placeholder="例：レイカーズ / DAL / Curry" autocomplete="off"></div><p class="search-status" id="search-status" role="status" aria-live="polite">チーム名・略称・選手名で検索できます。</p><div class="search-results" id="search-results"></div></dialog>
+  <script src="assets/js/nba-data.js" defer></script><script src="assets/js/filters.js" defer></script><script src="assets/js/app.js" defer></script>
 </body>
 </html>

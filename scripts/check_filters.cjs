@@ -1,0 +1,27 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const { normalize, teamMatches, playerMatches, heightCm, weightKg } = require('../assets/js/filters.js');
+const { teams, players } = JSON.parse(fs.readFileSync(path.join(__dirname, '../assets/data/nba.json'), 'utf8'));
+
+assert.equal(teams.filter(t => teamMatches(t, '', 'East')).length, 15);
+assert.equal(teams.filter(t => teamMatches(t, '', 'West')).length, 15);
+assert.equal(teams.filter(t => teamMatches(t, '', '', 'Pacific')).length, 5);
+assert.equal(teams.filter(t => teamMatches(t, '', 'East', 'Pacific')).length, 0);
+assert.deepEqual(teams.filter(t => teamMatches(t, 'レイカーズ')).map(t => t.abbreviation), ['LAL']);
+assert.deepEqual(teams.filter(t => teamMatches(t, 'ＤＡＬ')).map(t => t.abbreviation), ['DAL']);
+assert.deepEqual(teams.filter(t => teamMatches(t, 'San Francisco')).map(t => t.abbreviation), ['GSW']);
+assert.deepEqual(teams.filter(t => teamMatches(t, 'シクサーズ')).map(t => t.abbreviation), ['PHI']);
+assert.equal(teams.filter(t => teamMatches(t, 'not-a-team')).length, 0);
+assert.equal(normalize('Luka Dončić'), normalize('luka doncic'));
+assert(players.some(p => playerMatches(p, 'カイリーアービング')));
+assert(players.some(p => playerMatches(p, 'Curry')));
+assert(players.some(p => playerMatches(p, '八村')));
+assert(playerMatches({ name: 'Sample', position: 'F-C', number: '00' }, '#00', 'C'));
+assert(!playerMatches({ name: 'Sample', position: 'F-C', number: '00' }, '', 'G'));
+assert.equal(players.filter(p => playerMatches(p, 'not-a-player')).length, 0);
+assert.equal(heightCm('6-8'), 203);
+assert.equal(heightCm(''), null);
+assert.equal(weightKg('200'), 90.7);
+assert.equal(weightKg(''), null);
+console.log('PASS: conference/division intersections, English/Japanese/full-width/diacritic search, jersey numbers, multiple positions, empty results and profile unit conversion.');
