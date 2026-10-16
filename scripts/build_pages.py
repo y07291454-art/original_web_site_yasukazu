@@ -14,7 +14,7 @@ TEAMS = DATA['teams']
 PLAYERS = DATA['players']
 E = lambda value: escape(str(value), quote=True)
 DATE = DATA['updated_at'].replace('-', '/')
-ASSET_VERSION = '20261016-mobile-5'
+ASSET_VERSION = '20261017-mobile-icons-6'
 DIVISIONS = [
     ('East', 'Atlantic'), ('East', 'Central'), ('East', 'Southeast'),
     ('West', 'Northwest'), ('West', 'Pacific'), ('West', 'Southwest'),
@@ -99,16 +99,10 @@ def home():
     order = ['POR', 'GSW', 'SAC', 'LAL', 'LAC', 'PHX', 'UTA', 'DEN', 'OKC', 'DAL', 'SAS', 'HOU', 'NOP', 'MEM', 'MIN', 'MIL', 'CHI', 'IND', 'DET', 'CLE', 'WAS', 'ATL', 'CHA', 'ORL', 'MIA', 'PHI', 'BKN', 'NYK', 'BOS', 'TOR']
     by_abbr = {t['abbreviation']: t for t in TEAMS}
     pins = '\n          '.join(f'<div class="pin pin-{by_abbr[a]["pin"]}"><a class="label" href="{by_abbr[a]["page"]}" data-label="{E(by_abbr[a]["jp"])}" aria-label="{E(by_abbr[a]["jp"])}のチームページ"><img src="{by_abbr[a]["logo"]}" alt="{E(by_abbr[a]["name"])}" width="52" height="52"></a></div>' for a in order)
-    mobile_groups = []
-    for conf, label in [('East', 'EASTERN CONFERENCE'), ('West', 'WESTERN CONFERENCE')]:
-        links = ''.join(f'<a class="mobile-team-link" href="{t["page"]}" aria-label="{E(t["jp"])}のチームページ"><img src="{t["logo"]}" alt="" width="40" height="40" loading="lazy"><span class="mobile-team-name">{E(t["jp"].split("・")[-1])}</span><span class="mobile-team-abbr">{t["abbreviation"]}</span></a>' for t in TEAMS if t['conference'] == conf)
-        mobile_groups.append(f'<h3>{label}</h3><div class="mobile-team-grid">{links}</div>')
-    mobile_picker = f'<section class="mobile-team-picker page-wrap" aria-labelledby="mobile-picker-title"><div class="mobile-picker-heading"><h2 id="mobile-picker-title">チームを選ぶ</h2><a href="all-teams.html">絞り込んで探す →</a></div>{"".join(mobile_groups)}</section>'
     content = f'''<main id="main">
     <section class="home-mappu" aria-label="マップからチームを選ぶ"><div class="map-controls" data-map-controls role="group" aria-label="地図の表示" hidden><span>マップ</span><div><button type="button" data-map-view="fit" aria-pressed="true">全体</button><button type="button" data-map-view="zoom" aria-pressed="false">拡大</button></div></div><div class="map-frame"><div class="map-scroll" tabindex="0" role="region" aria-label="NBAチームの地図"><div class="map"><img src="assets/img/amerika-tizu.jpg" alt="アメリカ合衆国の地図。本拠地の位置は概略です" width="7306" height="4548">
           {pins}
-    </div></div></div><div class="map-caption"><span>全30チームのロゴからページを開けます。</span><span class="map-hint">← 左右にスクロール →</span><span class="map-mobile-help" id="map-mobile-help" role="status" aria-live="polite">下の一覧からもチームを選べます。</span></div></section>
-    {mobile_picker}
+    </div></div></div><div class="map-caption"><span>全30チームのロゴからページを開けます。</span><span class="map-hint">← 左右にスクロール →</span><span class="map-mobile-help" id="map-mobile-help" role="status" aria-live="polite">ロゴをタップ。選びにくいときは「拡大」。</span></div></section>
     <div class="home-conferences page-wrap"><a class="conference-card" href="all-teams.html?conference=West"><span class="conference-mark">W</span><div><strong>Western Conference</strong><small>ウェスタン · 15チーム</small></div><span class="arrow" aria-hidden="true">→</span></a><a class="conference-card" href="all-teams.html?conference=East"><span class="conference-mark">E</span><div><strong>Eastern Conference</strong><small>イースタン · 15チーム</small></div><span class="arrow" aria-hidden="true">→</span></a></div>
   </main>'''
     return document('NBA全30チームを地図で探す', 'home-page', content, active='map', extra_css='<link rel="stylesheet" href="assets/css/style.css">')

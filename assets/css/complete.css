@@ -42,7 +42,7 @@ button { cursor:pointer; }
 .pin .label:hover::after,.pin .label:focus-visible::after { opacity:1; }
 .map-caption { max-width:1152px; display:flex; justify-content:space-between; gap:14px; padding:0 8px; margin:0 auto 28px; font-size:12px; color:#59472e; }
 .map-hint { display:none; }
-.map-controls,.map-mobile-help,.mobile-team-picker { display:none; }
+.map-controls,.map-mobile-help { display:none; }
 .home-conferences { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:40px; }
 .conference-card { display:flex; align-items:center; gap:15px; padding:17px 20px; background:#fffaf2df; border:1px solid #9f794c65; border-radius:10px; text-decoration:none; box-shadow:0 3px 8px #5a3c2010; }
 .conference-card:hover { background:#fffaf2; }
@@ -237,26 +237,15 @@ button { cursor:pointer; }
   .map-scroll { width:100%; max-width:100%; -webkit-overflow-scrolling:touch; }
   .map { min-width:0; width:100%; container-type:inline-size; }
   .pin,.pin:hover { width:0; height:0; transform:none; }
-  .pin .label { --mobile-pin:clamp(16px,5.2cqw,36px); width:var(--mobile-pin); height:var(--mobile-pin); left:0; top:0; transform:translate(-50%,-50%); }
-  .pin .label img { width:100%; height:100%; padding:1px; box-shadow:0 2px 5px #0003; }
+  .pin .label { --mobile-pin:clamp(24px,7.8cqw,54px); width:var(--mobile-pin); height:var(--mobile-pin); left:0; top:0; transform:translate(-50%,-50%); touch-action:manipulation; }
+  .pin .label img { width:100%; height:100%; padding:1.5px; box-shadow:0 2px 5px #0003; }
   .pin .label::after { display:none; }
-  .home-page[data-map-view=zoom] .map { min-width:920px; container-type:normal; }
-  .home-page[data-map-view=zoom] .pin .label { width:52px; height:52px; }
-  .home-page[data-map-view=zoom] .pin .label img { padding:4px; }
+  .home-page[data-map-view=zoom] .map { min-width:1380px; container-type:normal; }
+  .home-page[data-map-view=zoom] .pin .label { width:78px; height:78px; }
+  .home-page[data-map-view=zoom] .pin .label img { padding:6px; }
   .map-caption { display:block; margin:0 4px 18px; padding:0; color:#645338; font-size:12px; }
   .map-caption>span:first-child,.map-caption .map-hint { display:none; }
   .map-mobile-help { display:inline; }
-  .mobile-team-picker { display:block; margin-bottom:28px; }
-  .mobile-picker-heading { display:flex; justify-content:space-between; align-items:center; gap:12px; }
-  .mobile-picker-heading h2 { margin:0; font-size:18px; }
-  .mobile-picker-heading a { display:flex; align-items:center; min-height:44px; font-size:12px; font-weight:650; text-underline-offset:4px; }
-  .mobile-team-picker h3 { margin:14px 0 9px; color:#645338; font-size:11px; letter-spacing:1px; }
-  .mobile-team-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
-  .mobile-team-link { min-width:0; min-height:110px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; padding:10px 6px 8px; background:#fffaf2f5; border:1px solid #aa895e70; border-radius:10px; text-align:center; text-decoration:none; box-shadow:0 2px 5px #69421c0c; touch-action:manipulation; }
-  .mobile-team-link:active { background:white; }
-  .mobile-team-link img { width:40px; height:40px; object-fit:contain; }
-  .mobile-team-name { color:var(--ink); font-size:12px; font-weight:700; line-height:1.45; overflow-wrap:anywhere; }
-  .mobile-team-abbr { color:#786a57; font-size:10px; font-weight:650; letter-spacing:1px; }
   .home-conferences { display:none; }
   .site-footer { display:block; padding:16px; font-size:11px; line-height:1.9; }
   .footer-brand { display:block; margin-bottom:5px; }
@@ -321,8 +310,6 @@ button { cursor:pointer; }
 }
 @media(max-width:360px) {
   .logo { font-size:15px; letter-spacing:0; }
-  .mobile-team-grid { gap:6px; }
-  .mobile-team-name { font-size:11px; }
   .roster-tools { grid-template-columns:minmax(0,1fr); }
 }
 @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition:none!important; } }

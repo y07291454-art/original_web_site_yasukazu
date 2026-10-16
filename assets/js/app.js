@@ -41,7 +41,7 @@
         if (!zoomed) mapScroll.scrollLeft = 0;
         mapScroll.setAttribute('aria-label', zoomed ? 'NBAチームの地図。左右にスワイプしてチームを選べます' : 'NBA全30チームの本拠地');
       }
-      if (help) help.textContent = zoomed ? '← 左右にスワイプしてチームを選ぶ →' : '下の一覧からもチームを選べます。';
+      if (help) help.textContent = zoomed ? '← 左右にスワイプしてチームを選ぶ →' : 'ロゴをタップ。選びにくいときは「拡大」。';
     }
     mapButtons.forEach(button => button.addEventListener('click', () => setMapView(button.dataset.mapView)));
     setMapView('fit');
