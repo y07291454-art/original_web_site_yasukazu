@@ -14,7 +14,7 @@ TEAMS = DATA['teams']
 PLAYERS = DATA['players']
 E = lambda value: escape(str(value), quote=True)
 DATE = DATA['updated_at'].replace('-', '/')
-ASSET_VERSION = '20261016-portrait-2'
+ASSET_VERSION = '20261016-map-fit-3'
 DIVISIONS = [
     ('East', 'Atlantic'), ('East', 'Central'), ('East', 'Southeast'),
     ('West', 'Northwest'), ('West', 'Pacific'), ('West', 'Southwest'),
@@ -101,9 +101,9 @@ def home():
     pins = '\n          '.join(f'<div class="pin pin-{by_abbr[a]["pin"]}"><a class="label" href="{by_abbr[a]["page"]}" data-label="{E(by_abbr[a]["jp"])}" aria-label="{E(by_abbr[a]["jp"])}のチームページ"><img src="{by_abbr[a]["logo"]}" alt="{E(by_abbr[a]["name"])}" width="52" height="52"></a></div>' for a in order)
     content = f'''<main id="main">
     <section class="home-intro page-wrap"><div><div class="eyebrow">NBA · 30 TEAMS</div><h1>地図から、好きなチームへ。</h1><p>ロゴを選んで、チーム情報と選手をチェック。</p></div><a class="text-link" href="all-teams.html">全30チームを一覧で見る <span aria-hidden="true">→</span></a></section>
-    <section class="home-mappu" aria-label="マップからチームを選ぶ"><div class="map-frame"><div class="map-scroll" tabindex="0" role="region" aria-label="NBAチームの地図。スマートフォンでは左右にスクロールできます"><div class="map"><img src="assets/img/amerika-tizu.jpg" alt="アメリカ合衆国の地図。本拠地の位置は概略です" width="7306" height="4548">
+    <section class="home-mappu" aria-label="マップからチームを選ぶ"><div class="map-stage"><div class="map-frame"><div class="map-viewport"><div class="map"><img src="assets/img/amerika-tizu.jpg" alt="アメリカ合衆国の地図。本拠地の位置は概略です" width="7306" height="4548">
           {pins}
-    </div></div></div><div class="map-caption"><span>全30チームのロゴからページを開けます。</span><span class="map-hint">← 左右にスクロール →</span></div></section>
+    </div></div></div></div><p class="map-caption">ロゴを選んでチームページへ</p></section>
     <div class="home-conferences page-wrap"><a class="conference-card" href="all-teams.html?conference=West"><span class="conference-mark">W</span><div><strong>Western Conference</strong><small>ウェスタン · 15チーム</small></div><span class="arrow" aria-hidden="true">→</span></a><a class="conference-card" href="all-teams.html?conference=East"><span class="conference-mark">E</span><div><strong>Eastern Conference</strong><small>イースタン · 15チーム</small></div><span class="arrow" aria-hidden="true">→</span></a></div>
   </main>'''
     return document('NBA全30チームを地図で探す', 'home-page', content, active='map', extra_css='<link rel="stylesheet" href="assets/css/style.css">')
