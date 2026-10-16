@@ -5,7 +5,7 @@
   <title>NBA全30チームを地図で探す | NBA Teams &amp; Players</title>
   <meta name="description" content="地図からNBA全30チームと選手を探せるファンサイト。チーム情報・選手プロフィールを紹介します。">
   <meta name="theme-color" content="#192d5f">
-  <link rel="stylesheet" href="assets/css/style.css"><link rel="stylesheet" href="assets/css/complete.css?v=20261016-map-fit-3">
+  <link rel="stylesheet" href="assets/css/style.css"><link rel="stylesheet" href="assets/css/complete.css?v=20261016-map-header-4">
 </head>
 <body class="home-page">
   <a class="skip-link" href="#main">本文へスキップ</a>
@@ -15,8 +15,7 @@
     <div class="icons"><button class="icon-button" type="button" data-open-search aria-label="チーム・選手を検索"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button><button class="icon-button menu-button" type="button" data-menu-toggle aria-label="メニュー" aria-expanded="false" aria-controls="mobile-menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button></div>
   </div><nav class="mobile-menu" id="mobile-menu" aria-label="モバイルナビゲーション" hidden><a href="index.html">マップ</a><a href="all-teams.html">全30チーム</a></nav></header>
   <main id="main">
-    <section class="home-intro page-wrap"><div><div class="eyebrow">NBA · 30 TEAMS</div><h1>地図から、好きなチームへ。</h1><p>ロゴを選んで、チーム情報と選手をチェック。</p></div><a class="text-link" href="all-teams.html">全30チームを一覧で見る <span aria-hidden="true">→</span></a></section>
-    <section class="home-mappu" aria-label="マップからチームを選ぶ"><div class="map-stage"><div class="map-frame"><div class="map-viewport"><div class="map"><img src="assets/img/amerika-tizu.jpg" alt="アメリカ合衆国の地図。本拠地の位置は概略です" width="7306" height="4548">
+    <section class="home-mappu" aria-label="マップからチームを選ぶ"><div class="map-frame"><div class="map-scroll" tabindex="0" role="region" aria-label="NBAチームの地図。スマートフォンでは左右にスクロールできます"><div class="map"><img src="assets/img/amerika-tizu.jpg" alt="アメリカ合衆国の地図。本拠地の位置は概略です" width="7306" height="4548">
           <div class="pin pin-blazers"><a class="label" href="blazers.html" data-label="ポートランド・トレイルブレイザーズ" aria-label="ポートランド・トレイルブレイザーズのチームページ"><img src="assets/img/trailblazers.webp" alt="Portland Trail Blazers" width="52" height="52"></a></div>
           <div class="pin pin-warriors"><a class="label" href="warriors.html" data-label="ゴールデンステイト・ウォリアーズ" aria-label="ゴールデンステイト・ウォリアーズのチームページ"><img src="assets/img/warriors.webp" alt="Golden State Warriors" width="52" height="52"></a></div>
           <div class="pin pin-kings"><a class="label" href="kings.html" data-label="サクラメント・キングス" aria-label="サクラメント・キングスのチームページ"><img src="assets/img/kings.webp" alt="Sacramento Kings" width="52" height="52"></a></div>
@@ -47,11 +46,11 @@
           <div class="pin pin-knicks"><a class="label" href="knicks.html" data-label="ニューヨーク・ニックス" aria-label="ニューヨーク・ニックスのチームページ"><img src="assets/img/nyk.jpg" alt="New York Knicks" width="52" height="52"></a></div>
           <div class="pin pin-celtics"><a class="label" href="celtics.html" data-label="ボストン・セルティックス" aria-label="ボストン・セルティックスのチームページ"><img src="assets/img/bos.webp" alt="Boston Celtics" width="52" height="52"></a></div>
           <div class="pin pin-raptors"><a class="label" href="raptors.html" data-label="トロント・ラプターズ" aria-label="トロント・ラプターズのチームページ"><img src="assets/img/raptors250110.webp" alt="Toronto Raptors" width="52" height="52"></a></div>
-    </div></div></div></div><p class="map-caption">ロゴを選んでチームページへ</p></section>
+    </div></div></div><div class="map-caption"><span>全30チームのロゴからページを開けます。</span><span class="map-hint">← 左右にスクロール →</span></div></section>
     <div class="home-conferences page-wrap"><a class="conference-card" href="all-teams.html?conference=West"><span class="conference-mark">W</span><div><strong>Western Conference</strong><small>ウェスタン · 15チーム</small></div><span class="arrow" aria-hidden="true">→</span></a><a class="conference-card" href="all-teams.html?conference=East"><span class="conference-mark">E</span><div><strong>Eastern Conference</strong><small>イースタン · 15チーム</small></div><span class="arrow" aria-hidden="true">→</span></a></div>
   </main>
   <footer class="site-footer"><span class="footer-brand">NBA Teams &amp; Players</span><span>選手情報：<a href="https://www.nba.com/players" target="_blank" rel="noopener noreferrer">NBA.com</a> · 2026/10/16取得<br>NBA・各チームの非公式ファンサイト</span></footer>
   <dialog class="search-dialog" id="site-search" aria-labelledby="search-title"><div class="search-top"><h2 id="search-title">チーム・選手を探す</h2><button class="close-button" type="button" data-close-search aria-label="検索を閉じる">×</button></div><div class="search-field"><label for="site-search-input">チーム名・略称・選手名</label><input id="site-search-input" type="search" placeholder="例：レイカーズ / DAL / Curry" autocomplete="off"></div><p class="search-status" id="search-status" role="status" aria-live="polite">チーム名・略称・選手名で検索できます。</p><div class="search-results" id="search-results"></div></dialog>
-  <script src="assets/js/nba-data.js" defer></script><script src="assets/js/filters.js" defer></script><script src="assets/js/app.js?v=20261016-map-fit-3" defer></script>
+  <script src="assets/js/nba-data.js" defer></script><script src="assets/js/filters.js" defer></script><script src="assets/js/app.js?v=20261016-map-header-4" defer></script>
 </body>
 </html>
