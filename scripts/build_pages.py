@@ -14,6 +14,7 @@ TEAMS = DATA['teams']
 PLAYERS = DATA['players']
 E = lambda value: escape(str(value), quote=True)
 DATE = DATA['updated_at'].replace('-', '/')
+ASSET_VERSION = '20261016-portrait-2'
 DIVISIONS = [
     ('East', 'Atlantic'), ('East', 'Central'), ('East', 'Southeast'),
     ('West', 'Northwest'), ('West', 'Pacific'), ('West', 'Southwest'),
@@ -35,7 +36,7 @@ def header(active=''):
 def footer():
     return f'''<footer class="site-footer"><span class="footer-brand">NBA Teams &amp; Players</span><span>選手情報：<a href="https://www.nba.com/players" target="_blank" rel="noopener noreferrer">NBA.com</a> · {DATE}取得<br>NBA・各チームの非公式ファンサイト</span></footer>
   <dialog class="search-dialog" id="site-search" aria-labelledby="search-title"><div class="search-top"><h2 id="search-title">チーム・選手を探す</h2><button class="close-button" type="button" data-close-search aria-label="検索を閉じる">×</button></div><div class="search-field"><label for="site-search-input">チーム名・略称・選手名</label><input id="site-search-input" type="search" placeholder="例：レイカーズ / DAL / Curry" autocomplete="off"></div><p class="search-status" id="search-status" role="status" aria-live="polite">チーム名・略称・選手名で検索できます。</p><div class="search-results" id="search-results"></div></dialog>
-  <script src="assets/js/nba-data.js" defer></script><script src="assets/js/filters.js" defer></script><script src="assets/js/app.js" defer></script>'''
+  <script src="assets/js/nba-data.js" defer></script><script src="assets/js/filters.js" defer></script><script src="assets/js/app.js?v={ASSET_VERSION}" defer></script>'''
 
 
 def document(title, body_class, content, *, active='', extra_css='', style='', description=''):
@@ -46,7 +47,7 @@ def document(title, body_class, content, *, active='', extra_css='', style='', d
   <title>{E(title)} | NBA Teams &amp; Players</title>
   <meta name="description" content="{E(description or '地図からNBA全30チームと選手を探せるファンサイト。チーム情報・選手プロフィールを紹介します。')}">
   <meta name="theme-color" content="#192d5f">
-  {extra_css}<link rel="stylesheet" href="assets/css/complete.css">
+  {extra_css}<link rel="stylesheet" href="assets/css/complete.css?v={ASSET_VERSION}">
 </head>
 <body class="{body_class}"{f' style="{style}"' if style else ''}>
   {header(active)}

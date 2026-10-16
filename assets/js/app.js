@@ -6,7 +6,7 @@
   const { normalize, teamMatches, playerMatches, heightCm, weightKg } = helpers;
   const teamsById = new Map(data.teams.map(team => [String(team.id), team]));
   const fallbackImage = 'assets/img/player-placeholder.svg';
-  const portrait = id => `https://cdn.nba.com/headshots/nba/latest/260x190/${id}.png`;
+  const portrait = (id, size = '260x190') => `https://cdn.nba.com/headshots/nba/latest/${size}/${id}.png`;
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
   // The same search and navigation are available on every page.
@@ -142,7 +142,7 @@
     playerRoot.innerHTML = `
       <nav class="breadcrumbs" aria-label="現在位置"><a href="index.html">マップ</a><span>/</span><a href="${team.page}">${esc(team.name)}</a><span>/</span><span>${esc(player.name)}</span></nav>
       <section class="player-hero">
-        <figure class="player-portrait"><img src="${portrait(player.id)}" alt="${esc(player.name)}" onerror="this.onerror=null;this.src='${fallbackImage}'" width="520" height="380"></figure>
+        <figure class="player-portrait"><img src="${portrait(player.id, '1040x760')}" alt="${esc(player.name)}" onerror="this.onerror=null;this.src='${fallbackImage}'" width="1040" height="760" decoding="async" fetchpriority="high"></figure>
         <div class="player-about"><span class="team-tag">${esc(player.position || 'PLAYER')}${player.number ? ` · #${esc(player.number)}` : ''}</span>
           <h1>${esc(player.name)}</h1>${player.jp ? `<p class="player-note">${esc(player.jp)}</p>` : ''}
           <a class="player-team-link" href="${team.page}"><img src="${team.logo}" alt="">${esc(team.name)} →</a>
