@@ -236,11 +236,44 @@ button { cursor:pointer; }
   .map-frame { margin:10px auto 10px; padding:6px; border-width:3px; border-radius:12px; }
   .map-scroll { width:100%; max-width:100%; -webkit-overflow-scrolling:touch; }
   .map { min-width:0; width:100%; container-type:inline-size; }
-  .pin,.pin:hover { width:0; height:0; transform:none; }
+  .pin,.pin:hover { width:0; height:0; left:var(--mobile-x); top:var(--mobile-y); transform:none; }
+  /* Offset neighboring teams without changing the logo size or desktop map. */
+  .pin-nuggets { --mobile-x:32%; --mobile-y:45%; --zoom-x:32%; --zoom-y:45%; }
+  .pin-blazers { --mobile-x:8%; --mobile-y:14%; --zoom-x:8%; --zoom-y:14%; }
+  .pin-warriors { --mobile-x:5.5%; --mobile-y:51.5%; --zoom-x:6%; --zoom-y:51.5%; }
+  .pin-kings { --mobile-x:8%; --mobile-y:36.5%; --zoom-x:7.9%; --zoom-y:42.1%; }
+  .pin-lakers { --mobile-x:5.5%; --mobile-y:66.5%; --zoom-x:9.1%; --zoom-y:60.9%; }
+  .pin-clippers { --mobile-x:15%; --mobile-y:60.5%; --zoom-x:14.9%; --zoom-y:60.4%; }
+  .pin-suns { --mobile-x:24.5%; --mobile-y:63.5%; --zoom-x:21%; --zoom-y:63.4%; }
+  .pin-jazz { --mobile-x:22%; --mobile-y:44%; --zoom-x:22%; --zoom-y:44%; }
+  .pin-thunder { --mobile-x:48%; --mobile-y:57%; --zoom-x:47.9%; --zoom-y:63%; }
+  .pin-dallas { --mobile-x:49%; --mobile-y:72%; --zoom-x:49%; --zoom-y:74.1%; }
+  .pin-spurs { --mobile-x:44.5%; --mobile-y:87.5%; --zoom-x:48.1%; --zoom-y:83.5%; }
+  .pin-rockets { --mobile-x:54%; --mobile-y:87.5%; --zoom-x:53.9%; --zoom-y:83.5%; }
+  .pin-pelicans { --mobile-x:63.5%; --mobile-y:83%; --zoom-x:60%; --zoom-y:83%; }
+  .pin-grizzlies { --mobile-x:60%; --mobile-y:65.5%; --zoom-x:60%; --zoom-y:60%; }
+  .pin-timberwolves { --mobile-x:50%; --mobile-y:20%; --zoom-x:50%; --zoom-y:20%; }
+  .pin-bucks { --mobile-x:63%; --mobile-y:20%; --zoom-x:63%; --zoom-y:28%; }
+  .pin-bulls { --mobile-x:63.5%; --mobile-y:35.5%; --zoom-x:65%; --zoom-y:38.3%; }
+  .pin-pacers { --mobile-x:63.5%; --mobile-y:50.5%; --zoom-x:66%; --zoom-y:47.7%; }
+  .pin-pistons { --mobile-x:73%; --mobile-y:27.5%; --zoom-x:72%; --zoom-y:28%; }
+  .pin-cavaliers { --mobile-x:73%; --mobile-y:42.5%; --zoom-x:74%; --zoom-y:39%; }
+  .pin-wizards { --mobile-x:82.5%; --mobile-y:47%; --zoom-x:83.1%; --zoom-y:45.2%; }
+  .pin-atlanta { --mobile-x:70%; --mobile-y:65.5%; --zoom-x:70%; --zoom-y:63%; }
+  .pin-hornets { --mobile-x:80%; --mobile-y:62.5%; --zoom-x:80%; --zoom-y:60%; }
+  .pin-magic { --mobile-x:80%; --mobile-y:77.5%; --zoom-x:80%; --zoom-y:81.8%; }
+  .pin-heat { --mobile-x:82%; --mobile-y:92.5%; --zoom-x:82%; --zoom-y:91.2%; }
+  .pin-76ers { --mobile-x:91.5%; --mobile-y:47%; --zoom-x:88.9%; --zoom-y:42.7%; }
+  .pin-knicks { --mobile-x:91.5%; --mobile-y:32%; --zoom-x:88.9%; --zoom-y:33.3%; }
+  .pin-nets { --mobile-x:82.5%; --mobile-y:32%; --zoom-x:83.1%; --zoom-y:35.8%; }
+  .pin-celtics { --mobile-x:90%; --mobile-y:17%; --zoom-x:90%; --zoom-y:24%; }
+  .pin-raptors { --mobile-x:72%; --mobile-y:12%; --zoom-x:72%; --zoom-y:15%; }
   .pin .label { --mobile-pin:clamp(24px,7.8cqw,54px); width:var(--mobile-pin); height:var(--mobile-pin); left:0; top:0; transform:translate(-50%,-50%); touch-action:manipulation; }
   .pin .label img { width:100%; height:100%; padding:1.5px; box-shadow:0 2px 5px #0003; }
+  .pin:hover .label img,.pin a.label img:hover { transform:none; }
   .pin .label::after { display:none; }
   .home-page[data-map-view=zoom] .map { min-width:1380px; container-type:normal; }
+  .home-page[data-map-view=zoom] .pin { left:var(--zoom-x); top:var(--zoom-y); }
   .home-page[data-map-view=zoom] .pin .label { width:78px; height:78px; }
   .home-page[data-map-view=zoom] .pin .label img { padding:6px; }
   .map-caption { display:block; margin:0 4px 18px; padding:0; color:#645338; font-size:12px; }

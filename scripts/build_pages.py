@@ -14,7 +14,7 @@ TEAMS = DATA['teams']
 PLAYERS = DATA['players']
 E = lambda value: escape(str(value), quote=True)
 DATE = DATA['updated_at'].replace('-', '/')
-ASSET_VERSION = '20261017-mobile-icons-6'
+ASSET_VERSION = '20261017-map-spacing-7'
 DIVISIONS = [
     ('East', 'Atlantic'), ('East', 'Central'), ('East', 'Southeast'),
     ('West', 'Northwest'), ('West', 'Pacific'), ('West', 'Southwest'),
