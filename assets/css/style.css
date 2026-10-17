@@ -1,167 +1,76 @@
-*{
-    margin: 0;
-    padding: 0;
-}
+/* The coordinate frame matches usa-arena.svg and the original map. */
+.home-mappu { padding:0 24px; }
+.map-frame { max-width:1200px; margin:16px auto 13px; padding:10px; border:1px solid #8eabc429; border-radius:14px; background:#06101b12; }
+.map-scroll { width:100%; overflow-x:auto; overscroll-behavior-x:contain; border-radius:8px; background:transparent; }
+.map { position:relative; min-width:920px; width:100%; margin:0; }
+.map>img { display:block; width:100%; height:auto; background:transparent; }
+.pin { position:absolute; width:0; height:0; left:var(--zoom-x); top:var(--zoom-y); z-index:2; }
+.pin:hover,.pin:focus-within { z-index:5; }
+.pin .label { position:absolute; left:0; top:0; display:block; width:52px; height:52px; padding:4px; border:1px solid #ffb04bd9; border-radius:50%; background:white; box-shadow:0 3px 12px #000b; transform:translate(-50%,-50%); touch-action:manipulation; }
+.pin .label img { display:block; width:100%; height:100%; object-fit:contain; border-radius:50%; }
+.pin .label:hover,.pin .label:focus-visible { border-color:#ffd486; box-shadow:0 0 0 3px #ffb04b55,0 6px 18px #000a; }
+.pin .label::after { content:attr(data-label); position:absolute; bottom:calc(100% + 10px); left:50%; transform:translateX(-50%); white-space:nowrap; padding:6px 10px; border:1px solid #ffffff3b; border-radius:6px; background:#06111ff5; color:#f5f8ff; font-size:11px; opacity:0; pointer-events:none; }
+.pin .label:hover::after,.pin .label:focus-visible::after { opacity:1; }
+.map-caption { display:flex; justify-content:space-between; gap:14px; max-width:1200px; margin:0 auto 24px; padding:0 10px; color:#c4cfdf; font-size:11px; }
+.map-hint,.map-mobile-help,.map-controls { display:none; }
+.home-conferences { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:15px; margin-bottom:10px; }
+.conference-card { display:flex; align-items:center; gap:16px; min-height:80px; padding:16px 20px; border:1px solid #ffffff2b; border-radius:10px; background:#071323df; text-decoration:none; }
+.conference-card:hover { border-color:#ffb14e8a; background:#0c1c30ee; }
+.conference-mark { padding-right:16px; border-right:1px solid #ffffff30; color:#ffb14e; font-size:25px; font-weight:900; }
+.conference-card strong { display:block; color:#f3f7ff; font-size:14px; }
+.conference-card small { color:#b3c0d5; font-size:11px; }
+.conference-card .arrow { margin-left:auto; color:#ffb14e; }
 
-header{ background:#192d5f; color:#fff; height:70px; }
-.header-bar{ margin:0 auto; height:70px; display:flex; align-items:center; padding:0 16px; }
-.logo{ font-size:28px; font-weight:800; letter-spacing:4px; }
-.icons{ margin-left:auto; display:flex; gap:16px; align-items:center; }
-.search-btn,.ham{ background:none; border:0; color:#fff; font-size:20px; cursor:pointer; }
-.ham{ width:36px; padding:0 8px; }
-.ham span{ display:block; width:26px; height:3px; background:#fff; border-radius:2px; margin:3px 0; }
+.pin-nuggets { --mobile-x:32%; --mobile-y:45%; --zoom-x:32%; --zoom-y:45%; }
+.pin-blazers { --mobile-x:8%; --mobile-y:14%; --zoom-x:8%; --zoom-y:14%; }
+.pin-warriors { --mobile-x:5.5%; --mobile-y:51.5%; --zoom-x:6%; --zoom-y:51.5%; }
+.pin-kings { --mobile-x:8%; --mobile-y:36.5%; --zoom-x:7.9%; --zoom-y:42.1%; }
+.pin-lakers { --mobile-x:5.5%; --mobile-y:66.5%; --zoom-x:9.1%; --zoom-y:60.9%; }
+.pin-clippers { --mobile-x:15%; --mobile-y:60.5%; --zoom-x:14.9%; --zoom-y:60.4%; }
+.pin-suns { --mobile-x:24.5%; --mobile-y:63.5%; --zoom-x:21%; --zoom-y:63.4%; }
+.pin-jazz { --mobile-x:22%; --mobile-y:44%; --zoom-x:22%; --zoom-y:44%; }
+.pin-thunder { --mobile-x:48%; --mobile-y:57%; --zoom-x:47.9%; --zoom-y:63%; }
+.pin-dallas { --mobile-x:49%; --mobile-y:72%; --zoom-x:49%; --zoom-y:74.1%; }
+.pin-spurs { --mobile-x:44.5%; --mobile-y:87.5%; --zoom-x:48.1%; --zoom-y:83.5%; }
+.pin-rockets { --mobile-x:54%; --mobile-y:87.5%; --zoom-x:53.9%; --zoom-y:83.5%; }
+.pin-pelicans { --mobile-x:63.5%; --mobile-y:83%; --zoom-x:60%; --zoom-y:83%; }
+.pin-grizzlies { --mobile-x:60%; --mobile-y:65.5%; --zoom-x:60%; --zoom-y:60%; }
+.pin-timberwolves { --mobile-x:50%; --mobile-y:20%; --zoom-x:50%; --zoom-y:20%; }
+.pin-bucks { --mobile-x:63%; --mobile-y:20%; --zoom-x:63%; --zoom-y:28%; }
+.pin-bulls { --mobile-x:63.5%; --mobile-y:35.5%; --zoom-x:65%; --zoom-y:38.3%; }
+.pin-pacers { --mobile-x:63.5%; --mobile-y:50.5%; --zoom-x:66%; --zoom-y:47.7%; }
+.pin-pistons { --mobile-x:73%; --mobile-y:27.5%; --zoom-x:72%; --zoom-y:28%; }
+.pin-cavaliers { --mobile-x:73%; --mobile-y:42.5%; --zoom-x:74%; --zoom-y:39%; }
+.pin-wizards { --mobile-x:82.5%; --mobile-y:47%; --zoom-x:83.1%; --zoom-y:45.2%; }
+.pin-atlanta { --mobile-x:70%; --mobile-y:65.5%; --zoom-x:70%; --zoom-y:63%; }
+.pin-hornets { --mobile-x:80%; --mobile-y:62.5%; --zoom-x:80%; --zoom-y:60%; }
+.pin-magic { --mobile-x:80%; --mobile-y:77.5%; --zoom-x:80%; --zoom-y:81.8%; }
+.pin-heat { --mobile-x:82%; --mobile-y:92.5%; --zoom-x:82%; --zoom-y:91.2%; }
+.pin-76ers { --mobile-x:91.5%; --mobile-y:47%; --zoom-x:88.9%; --zoom-y:42.7%; }
+.pin-knicks { --mobile-x:91.5%; --mobile-y:32%; --zoom-x:88.9%; --zoom-y:33.3%; }
+.pin-nets { --mobile-x:82.5%; --mobile-y:32%; --zoom-x:83.1%; --zoom-y:35.8%; }
+.pin-celtics { --mobile-x:90%; --mobile-y:17%; --zoom-x:90%; --zoom-y:24%; }
+.pin-raptors { --mobile-x:72%; --mobile-y:12%; --zoom-x:72%; --zoom-y:15%; }
 
-
-/* ===== 地図の基準 ===== */
-.map{
-  position: relative;
-  margin: 1px auto 0;
-  display: flex;
-  justify-content: center;
-}
-.map > img{
-  width: 68vw;
-  background-color: transparent;
-  mix-blend-mode: multiply;
-  display: block;
-  z-index: 1;
-}
-
-/* ===== ロゴの大きさ（全体で統一） ===== */
-:root {
-  --logo: 60px;   /* ← ここで調整すれば全チームのサイズが変わる */
-}
-
-/* ===== ピンの共通設定 ===== */
-.pin{
-  position:absolute;
-  transform: translate(-50%, -50%);
-  z-index: 5;
-}
-.pin:hover{ transform: translate(-50%, -50%); } /* 親は拡大させない */
-
-/* ラベル（ロゴの入れ物） */
-.pin .label{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  width: var(--logo);
-  height: var(--logo);
-  display:block;
-  line-height: 0;
-  background:transparent;
-}
-
-.pin .label img{
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 50%;
-  background:#fff;
-  padding:2px;
-  box-shadow:0 0 3px rgba(0,0,0,.3);
-  transform: scale(1);
-  transform-origin: center center;
-  transition: transform .18s ease;
-}
-
-
-.pin a.label img:hover {
-  transform: scale(1.15);
-}
-/* West */
-.pin-nuggets      { top: 30%; left: 35%; }  /* Denver Nuggets */
-/* ===== 位置（Denver を基準に再計算） ===== */
-
-/* West */
-.pin-blazers      { top: 14%;  left: 8%; }  /* Portland */
-.pin-warriors     { top: 50.0%; left: 6%; }  /* San Francisco */
-.pin-kings        { top: 44.1%; left: 7.9%; }  /* Sacramento */
-.pin-lakers       { top: 60.4%; left: 10%; }  /* Los Angeles (LAL) */
-.pin-clippers     { top: 60.4%; left: 14%; }  /* Los Angeles (LAC) ←重なり回避 */
-.pin-suns         { top: 63.4%; left: 21%; }  /* Phoenix */
-.pin-jazz         { top: 44%; left: 22%; }  /* Salt Lake City */
-.pin-nuggets      { top: 45%; left: 32.0%; }  /* Denver（基準） */
-.pin-thunder      { top: 63%; left: 47.9%; }  /* Oklahoma City */
-.pin-dallas       { top: 75%; left: 49.0%; }  /* Dallas */
-.pin-spurs        { top: 83%; left: 49%; }  /* San Antonio */
-.pin-rockets      { top: 83%; left: 53%; }  /* Houston */
-.pin-pelicans     { top: 83%; left: 60%; }  /* New Orleans */
-.pin-grizzlies    { top: 60%; left: 60%; }  /* Memphis */
-.pin-timberwolves { top: 20%; left: 50%; }  /* Minneapolis */
-
-
-.pin-bucks      { top:28%; left:63%; }  /* Milwaukee */
-.pin-bulls      { top:39%; left:65%; }  /* Chicago */
-.pin-pacers     { top:47%; left:66%; }  /* Indianapolis */
-.pin-pistons    { top:28%; left:72%; }  /* Detroit */
-.pin-cavaliers  { top:39%; left:74%; }  /* Cleveland */
-
-.pin-wizards    { top:45%; left:84%; }  /* Washington, D.C. */
-.pin-atlanta    { top:63%; left:70%; }  /* Atlanta */
-.pin-hornets    { top:60%; left:80%; }  /* Charlotte */
-.pin-magic      { top:83%; left:80%; }  /* Orlando */
-.pin-heat       { top:90%; left:82%; }  /* Miami */
-
-.pin-76ers      { top:42%; left:88%; }  /* Philadelphia */
-.pin-knicks     { top:32%; left:88%; }  /* New York */
-.pin-nets       { top:36%; left:84%; }  /* Brooklyn */
-.pin-celtics    { top:26%; left:90%; }  /* Boston */
-.pin-raptors    { top:15%; left:72%; }  /* Toronto */
-
-
-/* 全体背景：木目 */
-html, body {
-  height: 100%;
-  margin: 0;
-}
-body {
-  background:
-    repeating-linear-gradient(90deg, #d7b786 0 112px, #caa372 112px 114px),
-    linear-gradient(#daba84, #c79f6e);
-}
-
-/* 額縁：外側だけに付けるので地図やピンのサイズは変わらない */
-.map-frame {
-  max-width: 1100px;
-  margin: 40px auto;
-  padding: 20px; /* 額縁の厚み */
-  background: linear-gradient(135deg, #e6d2b5, #c9a971);
-  border: 6px solid #8b6b3f;
-  border-radius: 16px;
-  box-shadow:
-    0 12px 25px rgba(0,0,0,.40),
-    inset 0 0 12px rgba(0,0,0,.25);
-}
-
-/* 地図はそのまま基準面 */
-.map {
-  position: relative;
-  border-radius: 10px;
-  overflow: hidden;
-}
-.map > img {
-  width: 100%;
-  height: auto;
-  display: block;
-  background: #fff;
-  box-shadow: inset 0 0 6px rgba(0,0,0,.2);
-}
-
-/* ピン（座標は今のままでOK） */
-.pin {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-}
-.pin .label img {
-  width: 52px; height: 52px;
-  border-radius: 50%;
-  box-shadow: 0 6px 14px rgba(0,0,0,.35);
-  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
-}
-.pin:hover .label img {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 12px 28px rgba(0,0,0,.5);
-  filter: saturate(1.1);
+@media(max-width:1100px) { .map-hint { display:inline; } }
+@media(max-width:760px) {
+  .home-mappu { padding:0 10px; }
+  .map-controls { display:flex; justify-content:space-between; align-items:center; gap:12px; margin:10px 4px 0; }
+  .map-controls>span { color:#d7e0ef; font-size:12px; font-weight:750; }
+  .map-controls>div { display:flex; gap:4px; padding:3px; border:1px solid #ffffff3b; border-radius:24px; background:#061220ef; }
+  .map-controls button { min-width:68px; min-height:44px; padding:8px 15px; border:0; border-radius:22px; background:transparent; color:#c7d2e3; font-size:13px; font-weight:750; }
+  .map-controls button[aria-pressed=true] { background:#ffb14e; color:#07111f; }
+  .map-frame { margin:clamp(32px,8svh,76px) auto 10px; padding:8px; border:1px solid #8eabc426; border-radius:11px; background:transparent; }
+  .map-scroll { -webkit-overflow-scrolling:touch; }
+  .map { min-width:0; container-type:inline-size; }
+  .pin { left:var(--mobile-x); top:var(--mobile-y); }
+  .pin .label { width:clamp(24px,7.8cqw,54px); height:clamp(24px,7.8cqw,54px); padding:1.5px; box-shadow:0 2px 6px #000b; }
+  .pin .label::after { display:none; }
+  .home-page[data-map-view=zoom] .map { min-width:1380px; container-type:normal; }
+  .home-page[data-map-view=zoom] .pin { left:var(--zoom-x); top:var(--zoom-y); }
+  .home-page[data-map-view=zoom] .pin .label { width:78px; height:78px; padding:6px; }
+  .map-caption { display:block; margin:0 4px 18px; padding:0; color:#cad5e7; font-size:11px; text-shadow:0 1px 5px #000; }
+  .map-caption>span:first-child,.map-caption .map-hint { display:none; }
+  .map-mobile-help { display:inline; }
+  .home-conferences { display:none; }
 }

@@ -20,6 +20,7 @@ class Page(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.path, self.stack, self.ids, self.cards, self.links = path, [], set(), [], []
         self.h1_count = self.doctypes = 0
+        self.team_theme = ''
 
     def handle_decl(self, decl):
         if decl.lower() == 'doctype html':
@@ -27,6 +28,8 @@ class Page(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+        if tag == 'body':
+            self.team_theme = attrs.get('data-team-theme', '')
         if tag not in VOID:
             self.stack.append(tag)
         if 'id' in attrs:
@@ -77,14 +80,20 @@ def main():
     directory_ids = re.findall(r'data-team-id="(\d+)"', directory_html)
     assert len(directory_ids) == 30 and len(set(directory_ids)) == 30
     total = 0
+    theme_css = (ROOT / 'assets/css/team-themes.css').read_text()
     for team in TEAMS:
         page = pages[team['page']]
         expected = {str(p['id']) for p in PLAYERS if p['team_id'] == team['id']}
         assert page.h1_count == 1 and set(page.cards) == expected
         assert len(page.cards) == len(expected) and expected
+        assert page.team_theme == str(team['id']), (team['page'], 'wrong team theme')
+        assert f'[data-team-theme="{team["id"]}"]' in theme_css
+        for required in ('roster-filter', 'position-filter', 'roster-count', 'team-roster', 'roster-empty'):
+            assert required in page.ids, (team['page'], 'missing roster control', required)
+        assert 'index.html' in page.links and team['source_urls'][0] in page.links
         total += len(page.cards)
     assert total == len(PLAYERS)
-    for css_name in ('style.css', 'complete.css'):
+    for css_name in ('style.css', 'complete.css', 'team-themes.css'):
         css = ROOT / 'assets/css' / css_name
         for match in re.findall(r'url\([\'\"]?([^\)\'\"]+)', css.read_text()):
             if not match.startswith(('data:', 'http:','https:')):

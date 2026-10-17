@@ -154,7 +154,7 @@
       return;
     }
     document.title = `${player.name} | NBA Teams & Players`;
-    document.body.style.setProperty('--primary', team.color);
+    document.body.dataset.teamTheme = String(team.id);
     const height = heightCm(player.height);
     const weight = weightKg(player.weight);
     const draft = player.draft_year && player.draft_year !== 'Undrafted'

@@ -1,12 +1,14 @@
 # NBA Teams & Players
 
-アメリカの地図からNBA全30チームを選び、チーム情報と選手プロフィールを見られるファンサイトです。元の木目背景、地図、チームロゴを引き継いでいます。
+アメリカの地図からNBA全30チームを選び、チーム情報と選手プロフィールを見られるファンサイトです。アリーナを背景に、各チームのロゴ・チームカラー・選手写真を主役にしたデザインです。
 
 - 全30チームのチーム情報・アリーナ・選手カード
 - チーム一覧のカンファレンス／ディビジョン／名前による絞り込み
 - チーム内の選手名・背番号・ポジションによる絞り込み
 - 全ページ共通のチーム・選手検索
 - 選手プロフィールとNBA公式ページへのリンク
+- 全30チームで共通のアリーナ風レイアウトと、チーム別のカラー・アクセント
+- 選手カードはPCで4列、スマートフォンで2列。高解像度の公式写真とプロフィールへのリンク
 - PCでは元の大きさのマップを維持。スマートフォンでは地図の全体／拡大切り替えに対応し、マップ上のロゴを従来の1.5倍に拡大。近隣チームの位置を少しずらし、ロゴの重なりを解消
 - スマートフォン向けの大きな操作ボタン、読みやすい文字・検索欄、ノッチ周辺の余白
 
@@ -27,14 +29,18 @@ GitHub Pagesで `index.html` を公開できます。フレームワーク、サ
 
 ## 編集
 
-データは `assets/data/nba.json`、追加した共通デザインは `assets/css/complete.css`、検索・絞り込みは `assets/js/app.js` にあります。
+データは `assets/data/nba.json`、共通デザインは `assets/css/complete.css`、マップは `assets/css/style.css`、検索・絞り込みは `assets/js/app.js` にあります。`assets/css/team-themes.css` はチームカラーと暗い画面用アクセントを生成したファイルです。
+
+アリーナ背景の `arena-night.webp` とスマートフォン向けの `arena-night-mobile.webp` は、このサイトの装飾用に生成した画像です。特定チームの実際のホームアリーナ写真を示すものではありません。`usa-arena.svg` は元の地図を同じ座標でベクトル化したもので、`scripts/trace_arena_map.py` から再生成できます（変換時だけPillow・NumPy・SciPyを使用）。
 
 JSONのチーム情報や選手情報を編集した後、次のコマンドでHTMLとブラウザ用データを再生成します。
 
 ```sh
 python scripts/build_pages.py
 python scripts/check_site.py
+python scripts/check_map_layout.py
 node scripts/check_filters.cjs
+node scripts/check_profiles.cjs
 ```
 
 ページは静的HTMLなので、JavaScriptが無効でもマップ、チーム一覧、各チームの選手一覧を閲覧できます。選手詳細と絞り込みにはJavaScriptを使います。
