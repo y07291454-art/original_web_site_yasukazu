@@ -14,7 +14,7 @@ TEAMS = DATA['teams']
 PLAYERS = DATA['players']
 E = lambda value: escape(str(value), quote=True)
 DATE = DATA['updated_at'].replace('-', '/')
-ASSET_VERSION = '20261017-map-fit-9'
+ASSET_VERSION = '20261018-mobile-map-10'
 # Display accents complement the checked-in team colors on dark surfaces.
 TEAM_ACCENTS = {
     'BOS':'#9bddac','BKN':'#e9edf5','NYK':'#ffa15d','PHI':'#7fbdff','TOR':'#ff7b94',
