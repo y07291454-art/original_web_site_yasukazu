@@ -14,7 +14,7 @@ TEAMS = DATA['teams']
 PLAYERS = DATA['players']
 E = lambda value: escape(str(value), quote=True)
 DATE = DATA['updated_at'].replace('-', '/')
-ASSET_VERSION = '20261017-arena-8'
+ASSET_VERSION = '20261017-map-fit-9'
 # Display accents complement the checked-in team colors on dark surfaces.
 TEAM_ACCENTS = {
     'BOS':'#9bddac','BKN':'#e9edf5','NYK':'#ffa15d','PHI':'#7fbdff','TOR':'#ff7b94',
@@ -45,8 +45,9 @@ def header(active=''):
   </div><nav class="mobile-menu" id="mobile-menu" aria-label="モバイルナビゲーション" hidden><a href="index.html">マップ</a><a href="all-teams.html">全30チーム</a></nav></header>'''
 
 
-def footer():
-    return f'''<footer class="site-footer"><span class="footer-brand">NBA Teams &amp; Players</span><span>選手情報：<a href="https://www.nba.com/players" target="_blank" rel="noopener noreferrer">NBA.com</a> · {DATE}取得<br>NBA・各チームの非公式ファンサイト</span></footer>
+def footer(compact=False):
+    credits = f'<span>NBA非公式ファンサイト</span><span>選手情報：<a href="https://www.nba.com/players" target="_blank" rel="noopener noreferrer">NBA.com</a> · {DATE}</span>' if compact else f'<span class="footer-brand">NBA Teams &amp; Players</span><span>選手情報：<a href="https://www.nba.com/players" target="_blank" rel="noopener noreferrer">NBA.com</a> · {DATE}取得<br>NBA・各チームの非公式ファンサイト</span>'
+    return f'''<footer class="site-footer">{credits}</footer>
   <dialog class="search-dialog" id="site-search" aria-labelledby="search-title"><div class="search-top"><h2 id="search-title">チーム・選手を探す</h2><button class="close-button" type="button" data-close-search aria-label="検索を閉じる">×</button></div><div class="search-field"><label for="site-search-input">チーム名・略称・選手名</label><input id="site-search-input" type="search" placeholder="例：レイカーズ / DAL / Curry" autocomplete="off"></div><p class="search-status" id="search-status" role="status" aria-live="polite">チーム名・略称・選手名で検索できます。</p><div class="search-results" id="search-results"></div></dialog>
   <script src="assets/js/nba-data.js" defer></script><script src="assets/js/filters.js" defer></script><script src="assets/js/app.js?v={ASSET_VERSION}" defer></script>'''
 
@@ -67,7 +68,7 @@ def document(title, body_class, content, *, active='', extra_css='', theme='', d
 <body class="{body_class}"{f' data-team-theme="{theme}"' if theme else ''}>
   {header(active)}
   {content}
-  {footer()}
+  {footer(compact=body_class == 'home-page')}
 </body>
 </html>
 '''
@@ -117,8 +118,7 @@ def home():
     content = f'''<main id="main">
     <section class="home-mappu" aria-label="マップからチームを選ぶ"><div class="map-controls" data-map-controls role="group" aria-label="地図の表示" hidden><span>マップ</span><div><button type="button" data-map-view="fit" aria-pressed="true">全体</button><button type="button" data-map-view="zoom" aria-pressed="false">拡大</button></div></div><div class="map-frame"><div class="map-scroll" tabindex="0" role="region" aria-label="NBAチームの地図"><div class="map"><img src="assets/img/usa-arena.svg" alt="アメリカ合衆国の地図。本拠地の位置は概略です" width="7306" height="4548">
           {pins}
-    </div></div></div><div class="map-caption"><span>全30チームのロゴからページを開けます。</span><span class="map-hint">← 左右にスクロール →</span><span class="map-mobile-help" id="map-mobile-help" role="status" aria-live="polite">ロゴをタップ。選びにくいときは「拡大」。</span></div></section>
-    <div class="home-conferences page-wrap"><a class="conference-card" href="all-teams.html?conference=West"><span class="conference-mark">W</span><div><strong>Western Conference</strong><small>ウェスタン · 15チーム</small></div><span class="arrow" aria-hidden="true">→</span></a><a class="conference-card" href="all-teams.html?conference=East"><span class="conference-mark">E</span><div><strong>Eastern Conference</strong><small>イースタン · 15チーム</small></div><span class="arrow" aria-hidden="true">→</span></a></div>
+    </div></div></div><div class="map-caption"><span>全30チームのロゴからページを開けます。</span><span class="map-mobile-help" id="map-mobile-help" role="status" aria-live="polite">ロゴをタップ。選びにくいときは「拡大」。</span></div></section>
   </main>'''
     return document('NBA全30チームを地図で探す', 'home-page', content, active='map', extra_css=f'<link rel="stylesheet" href="assets/css/style.css?v={ASSET_VERSION}">')
 
