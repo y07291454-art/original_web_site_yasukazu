@@ -14,6 +14,8 @@ for (const missing of [undefined,null,NaN,Infinity,'20.9']) assert.equal(ui.numb
 assert.equal(ui.getRecord(data,'invalid',data.seasons[0].id),null);
 assert.ok(ui.renderMetrics(null).includes('公式記録はありません'));
 assert.ok(!ui.renderMetrics(null).includes('0.0'));
+assert.ok(ui.renderMetrics({FGM:0,FGA:0,FG_PCT:0}).includes('<td>0.0 / 0.0</td><td>0.0%</td>'));
+assert.ok(ui.renderMetrics({}).includes('<td>— / —</td><td>—</td>'));
 assert.equal(data.per_mode,'PerGame');assert.equal(data.season_type,'Regular Season');
 const ids = new Set(roster.players.map(p=>String(p.id)));
 for (const season of data.seasons) {
@@ -23,6 +25,11 @@ for (const season of data.seasons) {
     const html=ui.renderMetrics(record);assert.ok(!html.includes('NaN'));
     for (const field of ['PTS','REB','AST','GP','MIN','STL','BLK','TOV']) assert.ok(html.includes(ui.number(record[field],false,field==='GP')));
     for (const field of ['FG_PCT','FG3_PCT','FT_PCT']) assert.ok(html.includes(ui.number(record[field],true)));
+    for (const [made,attempts] of [['FGM','FGA'],['FG3M','FG3A'],['FTM','FTA']]) {
+      assert.equal(typeof record[made],'number');assert.equal(typeof record[attempts],'number');
+      assert.ok(record[made]<=record[attempts]);
+      assert.ok(html.includes(`<td>${ui.number(record[made])} / ${ui.number(record[attempts])}</td>`));
+    }
   }
 }
 for (const team of roster.teams) {

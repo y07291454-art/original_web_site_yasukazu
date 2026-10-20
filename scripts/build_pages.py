@@ -15,7 +15,7 @@ PLAYERS = DATA['players']
 STATS = json.loads((ROOT / 'assets/data/player-stats.json').read_text())
 E = lambda value: escape(str(value), quote=True)
 DATE = DATA['updated_at'].replace('-', '/')
-ASSET_VERSION = '20261020-stats-map-12'
+ASSET_VERSION = '20261020-shooting-13'
 # Display accents complement the checked-in team colors on dark surfaces.
 TEAM_ACCENTS = {
     'BOS':'#9bddac','BKN':'#e9edf5','NYK':'#ffa15d','PHI':'#7fbdff','TOR':'#ff7b94',

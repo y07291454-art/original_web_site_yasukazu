@@ -14,7 +14,7 @@ import json
 import math
 
 ROOT = Path(__file__).resolve().parents[1]
-FIELDS = ('GP', 'MIN', 'PTS', 'REB', 'AST', 'STL', 'BLK', 'TOV', 'FG_PCT', 'FG3_PCT', 'FT_PCT')
+FIELDS = ('GP', 'MIN', 'PTS', 'REB', 'AST', 'STL', 'BLK', 'TOV', 'FGM', 'FGA', 'FG_PCT', 'FG3M', 'FG3A', 'FG3_PCT', 'FTM', 'FTA', 'FT_PCT')
 
 
 def source_url(season):
@@ -40,6 +40,9 @@ def parse_season(payload, season, player_ids):
             assert value is None or (isinstance(value, (int, float)) and math.isfinite(value) and value >= 0)
             if key.endswith('_PCT') and value is not None:
                 assert value <= 1
+        for made, attempted in [('FGM', 'FGA'), ('FG3M', 'FG3A'), ('FTM', 'FTA')]:
+            if row[made] is not None and row[attempted] is not None:
+                assert row[made] <= row[attempted], 'Makes must not exceed attempts'
         if str(row['PLAYER_ID']) in player_ids:
             players[str(row['PLAYER_ID'])] = {key: row[key] for key in FIELDS}
     return {'id': season, 'source_url': source_url(season), 'source_rows': len(rows), 'players': players}
