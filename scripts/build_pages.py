@@ -15,7 +15,7 @@ PLAYERS = DATA['players']
 STATS = json.loads((ROOT / 'assets/data/player-stats.json').read_text())
 E = lambda value: escape(str(value), quote=True)
 DATE = DATA['updated_at'].replace('-', '/')
-ASSET_VERSION = '20261020-shooting-13'
+ASSET_VERSION = '20261020-explore-15'
 # Display accents complement the checked-in team colors on dark surfaces.
 TEAM_ACCENTS = {
     'BOS':'#9bddac','BKN':'#e9edf5','NYK':'#ffa15d','PHI':'#7fbdff','TOR':'#ff7b94',
@@ -43,9 +43,9 @@ def header(active=''):
     return f'''<a class="skip-link" href="#main">本文へスキップ</a>
   <header class="site-header"><div class="header-bar">
     <a class="logo" href="index.html" aria-label="NBA Teams & Players ホーム">{BALL_ICON}<span><strong>NBA</strong> Teams<span class="amp">&amp;</span>Players</span></a>
-    <nav class="header-links" aria-label="メインナビゲーション"><a href="index.html"{current('map')}>マップ</a><a href="all-teams.html"{current('teams')}>全30チーム</a></nav>
+    <nav class="header-links" aria-label="メインナビゲーション"><a href="index.html"{current('map')}>マップ</a><a href="all-teams.html"{current('teams')}>全30チーム</a><a href="players.html"{current('players')}>選手を探す</a><a href="schedule.html"{current('schedule')}>試合日程</a></nav>
     <div class="icons"><button class="icon-button" type="button" data-open-search aria-label="チーム・選手を検索">{SEARCH_ICON}</button><button class="icon-button menu-button" type="button" data-menu-toggle aria-label="メニュー" aria-expanded="false" aria-controls="mobile-menu">{MENU_ICON}</button></div>
-  </div><nav class="mobile-menu" id="mobile-menu" aria-label="モバイルナビゲーション" hidden><a href="index.html">マップ</a><a href="all-teams.html">全30チーム</a></nav></header>'''
+  </div><nav class="mobile-menu" id="mobile-menu" aria-label="サイトメニュー" hidden><a href="index.html">マップ</a><a href="all-teams.html">全30チーム</a><a href="players.html">選手を探す・ランキング</a><a href="compare.html">選手を比較<span class="menu-count" data-compare-count>0/2</span></a><a href="favorites.html">推しチーム・選手<span class="menu-count" data-favorite-count>0</span></a><a href="schedule.html">試合日程</a></nav></header>'''
 
 
 def footer(compact=False, with_stats=False):
@@ -53,7 +53,7 @@ def footer(compact=False, with_stats=False):
     stats_scripts = f'<script src="assets/js/player-stats-data.js?v={ASSET_VERSION}" defer></script><script src="assets/js/stats.js?v={ASSET_VERSION}" defer></script>' if with_stats else ''
     return f'''<footer class="site-footer">{credits}</footer>
   <dialog class="search-dialog" id="site-search" aria-labelledby="search-title"><div class="search-top"><h2 id="search-title">チーム・選手を探す</h2><button class="close-button" type="button" data-close-search aria-label="検索を閉じる">×</button></div><div class="search-field"><label for="site-search-input">チーム名・略称・選手名</label><input id="site-search-input" type="search" placeholder="例：レイカーズ / DAL / Curry" autocomplete="off"></div><p class="search-status" id="search-status" role="status" aria-live="polite">チーム名・略称・選手名で検索できます。</p><div class="search-results" id="search-results"></div></dialog>
-  <script src="assets/js/nba-data.js" defer></script><script src="assets/js/filters.js" defer></script>{stats_scripts}<script src="assets/js/app.js?v={ASSET_VERSION}" defer></script>'''
+  <script src="assets/js/nba-data.js" defer></script><script src="assets/js/filters.js" defer></script>{stats_scripts}<script src="assets/js/explore-core.js?v={ASSET_VERSION}" defer></script><script src="assets/js/app.js?v={ASSET_VERSION}" defer></script><script src="assets/js/features.js?v={ASSET_VERSION}" defer></script>'''
 
 
 def document(title, body_class, content, *, active='', extra_css='', theme='', description=''):
@@ -70,11 +70,12 @@ def document(title, body_class, content, *, active='', extra_css='', theme='', d
   <link rel="stylesheet" href="assets/css/team-themes.css?v={ASSET_VERSION}">
   <link rel="stylesheet" href="assets/css/immersive.css?v={ASSET_VERSION}">
   <link rel="stylesheet" href="assets/css/stats.css?v={ASSET_VERSION}">
+  <link rel="stylesheet" href="assets/css/features.css?v={ASSET_VERSION}">
 </head>
 <body class="{body_class}"{f' data-team-theme="{theme}"' if theme else ''}>
   {header(active)}
   {content}
-  {footer(compact=body_class == 'home-page', with_stats=body_class == 'player-page')}
+  {footer(compact=body_class == 'home-page', with_stats=body_class in ('player-page', 'explorer-page', 'compare-page', 'favorites-page'))}
 </body>
 </html>
 '''
@@ -159,6 +160,36 @@ def player_page(player_id=''):
     return document('選手プロフィール', 'player-page', f'<main id="main" class="page-wrap"><div id="player-detail" data-player="{player_id}"><noscript><section class="empty-state"><h1>選手プロフィール</h1><p>選手の詳細を見るにはJavaScriptを有効にしてください。</p><a class="pill-link" href="https://www.nba.com/players">NBA公式の選手一覧へ</a></section></noscript></div></main>', active='teams')
 
 
+
+def feature_page(title, body_class, content, active='players'):
+    return document(title, body_class, f'<main id="main" class="page-wrap">{content}</main>', active=active)
+
+
+def feature_pages():
+    intro = lambda eyebrow, title, text: f'<section class="feature-intro"><span class="eyebrow">{eyebrow}</span><h1>{title}</h1><p>{text}</p></section>'
+    options = ''.join(f'<option value="{key}">{label}</option>' for key, label in [('PTS','得点'),('REB','リバウンド'),('AST','アシスト'),('STL','スティール'),('BLK','ブロック'),('FG3A','3P試投数'),('FGA','FG試投数'),('FG_PCT','FG成功率'),('FG3_PCT','3P成功率'),('FT_PCT','FT成功率'),('MIN','出場時間')])
+    explorer = intro('PLAYER EXPLORER', '気になる選手を、見つけよう。', '条件を選んで探す。成績を比べて、新しい推しへ。') + f'''<section class="feature-panel"><form id="explorer-form" class="explorer-filters" aria-label="選手の検索条件">
+      <label class="wide">選手名・チーム名<input type="search" name="query" placeholder="例：Curry / カリー / レイカーズ" autocomplete="off"></label>
+      <label>シーズン<select name="season" id="explore-season"></select></label><label>並び順（高い順）<select name="metric">{options}</select></label>
+      <label>所属チーム<select name="team" id="explore-team"></select></label><label>ポジション<select name="position"><option value="">全ポジション</option><option value="G">ガード（G）</option><option value="F">フォワード（F）</option><option value="C">センター（C）</option></select></label>
+      <label>最低出場試合数<input type="number" name="minGames" min="0" max="82" step="1" value="10" inputmode="numeric"></label>
+      <label>平均得点の下限<input type="number" name="minPoints" min="0" max="100" step="0.1" value="0" inputmode="decimal"></label>
+      <label>平均3P試投数の下限<input type="number" name="minThrees" min="0" max="30" step="0.1" value="0" inputmode="decimal"></label>
+      <label>身長の下限（cm）<input type="number" name="minHeight" min="140" max="260" placeholder="指定なし" inputmode="numeric"></label>
+      <label>身長の上限（cm）<input type="number" name="maxHeight" min="140" max="260" placeholder="指定なし" inputmode="numeric"></label>
+      <label>記録のない選手<select name="includeMissing"><option value="">表示しない</option><option value="1">含める（最低出場0で有効）</option></select></label>
+    </form><div class="feature-actions"><button class="feature-button" id="explorer-reset" type="button">条件をリセット</button><a class="feature-button" href="compare.html">選手を比較 →</a></div><p class="feature-note" id="explorer-scope"></p><p class="feature-note">所属は{DATE}取得の名簿。各シーズン当時の所属を示すものではありません。</p></section>
+    <div class="explorer-toolbar"><h2>条件内のランキング</h2><p id="explorer-count" role="status" aria-live="polite"></p></div><div id="explorer-ranking" class="explorer-ranking"></div><div class="players" id="explorer-results"><p class="load-state">選手を読み込み中…</p></div><div class="feature-actions"><button class="feature-button" id="explorer-more" type="button" hidden>さらに24人表示</button></div>'''
+    write('players.html', feature_page('選手検索・ランキング', 'explorer-page', explorer))
+    pickers=''.join(f'<div class="compare-picker"><label for="compare-query-{slot}">選手{slot+1}<input type="search" id="compare-query-{slot}" placeholder="選手名で検索" autocomplete="off" aria-controls="compare-matches-{slot}"></label><div class="compare-matches" id="compare-matches-{slot}" aria-live="polite"></div><div class="compare-selected" id="compare-selected-{slot}"></div></div>' for slot in range(2))
+    compare = intro('SIDE BY SIDE', '2人の違いを、見てみよう。', '同じシーズンの成績を横に並べて比較。') + f'''<section class="feature-panel"><div class="compare-pickers">{pickers}</div></section><section class="feature-panel"><div class="feature-heading"><h2>シーズン成績</h2><label for="compare-season">シーズン<select id="compare-season"></select></label></div><div id="compare-content" aria-live="polite"></div><div class="feature-actions"><button class="feature-button" type="button" id="copy-compare-link">比較リンクをコピー</button><a class="feature-button" href="players.html">条件から選手を探す →</a></div><details id="compare-share-details"><summary>比較ページのURL</summary><label class="sr-only" for="compare-share-url">比較ページのURL</label><input class="share-url" id="compare-share-url" readonly type="url"></details></section>'''
+    write('compare.html', feature_page('選手を比較', 'compare-page', compare))
+    favorites = intro('YOUR FAVORITES', '推しに、すぐ会える。', 'チームや選手の「推しに保存」で、自分だけの一覧に。') + '<p class="feature-note">このブラウザに保存されます。別の端末への同期はありません。ブラウザのデータを消すと保存内容も削除されます。</p><div class="feature-actions"><a class="feature-button" href="players.html">選手を探す →</a><a class="feature-button" href="all-teams.html">チームを探す →</a></div><div id="favorites-content"></div>'
+    write('favorites.html', feature_page('推しチーム・選手', 'favorites-page', favorites))
+    schedule = intro('NEXT TIP-OFF', '次の試合は、いつ？', '日本時間でチェックして、カレンダーに追加しよう。') + '<section class="feature-panel"><div class="schedule-controls"><label for="schedule-team">チーム<select id="schedule-team"><option>読み込み中…</option></select></label><label for="schedule-month">日本時間の月<select id="schedule-month"><option value="">すべての月</option></select></label></div><p class="feature-note" id="schedule-source"></p><p class="feature-note">レギュラーシーズンの対戦確定分を掲載。カップ戦の対戦未定枠は含みません。カレンダーの終了時刻は開始から3時間後の仮置きです。</p><p id="schedule-count" class="feature-note" role="status" aria-live="polite"></p><div class="game-list" id="schedule-results" aria-live="polite"><p class="load-state">日程を読み込み中…</p></div><div class="feature-actions"><button class="feature-button" id="schedule-more" type="button" hidden>さらに30試合表示</button><a class="feature-button" href="https://www.nba.com/schedule" target="_blank" rel="noopener noreferrer">NBA公式日程 ↗</a></div></section>'
+    write('schedule.html', feature_page('日本時間の試合日程', 'schedule-page', schedule, active='schedule'))
+
+
 def main():
     assert len(TEAMS) == 30 and len({t['id'] for t in TEAMS}) == 30
     assert len({p['id'] for p in PLAYERS}) == len(PLAYERS)
@@ -173,6 +204,7 @@ def main():
     write('index.html', home())
     write('all-teams.html', directory())
     write('player.html', player_page())
+    feature_pages()
     # Preserve the original Lakers URL and the existing Kyrie link.
     lakers_index = next(i for i, t in enumerate(TEAMS) if t['abbreviation'] == 'LAL')
     write('teams.html', team_page(TEAMS[lakers_index], lakers_index))
