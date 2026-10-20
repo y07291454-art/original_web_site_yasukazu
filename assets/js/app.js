@@ -123,6 +123,37 @@
     filterDirectory();
   }
 
+  // Both panels remain available without JS; enhancement starts on the roster.
+  const teamTabs = document.querySelector('[data-team-tabs]');
+  if (teamTabs) {
+    const tabs = [...teamTabs.querySelectorAll('[data-team-tab]')];
+    const panels = tabs.map(tab => document.getElementById(tab.getAttribute('aria-controls')));
+    function selectTeamTab(selected, moveFocus = false) {
+      tabs.forEach((tab, index) => {
+        const active = tab === selected;
+        tab.setAttribute('aria-selected', String(active));
+        tab.tabIndex = active ? 0 : -1;
+        panels[index].hidden = !active;
+      });
+      if (moveFocus) selected.focus();
+    }
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => selectTeamTab(tab));
+      tab.addEventListener('keydown', event => {
+        let next;
+        if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+        else if (event.key === 'ArrowLeft') next = (index + tabs.length - 1) % tabs.length;
+        else if (event.key === 'Home') next = 0;
+        else if (event.key === 'End') next = tabs.length - 1;
+        else return;
+        event.preventDefault();
+        selectTeamTab(tabs[next], true);
+      });
+    });
+    selectTeamTab(tabs.find(tab => tab.dataset.teamTab === 'players'));
+    teamTabs.hidden = false;
+  }
+
   // Team rosters are generated in HTML, so the core content is available without JS.
   const roster = document.getElementById('team-roster');
   if (roster) {

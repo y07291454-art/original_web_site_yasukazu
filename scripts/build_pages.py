@@ -14,7 +14,7 @@ TEAMS = DATA['teams']
 PLAYERS = DATA['players']
 E = lambda value: escape(str(value), quote=True)
 DATE = DATA['updated_at'].replace('-', '/')
-ASSET_VERSION = '20261018-mobile-map-10'
+ASSET_VERSION = '20261020-immersive-11'
 # Display accents complement the checked-in team colors on dark surfaces.
 TEAM_ACCENTS = {
     'BOS':'#9bddac','BKN':'#e9edf5','NYK':'#ffa15d','PHI':'#7fbdff','TOR':'#ff7b94',
@@ -33,6 +33,8 @@ MENU_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-w
 BALL_ICON = '<svg class="brand-ball" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="16" cy="16" r="14"/><path d="M2 16h28M16 2v28M6 6c12 4 16 12 20 20M26 6C14 10 10 18 6 26"/></svg>'
 LOCATION_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>'
 ARENA_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><ellipse cx="12" cy="7" rx="10" ry="4"/><path d="M2 7v10c0 5 20 5 20 0V7M7 11v9M12 11v10M17 11v9"/></svg>'
+GLOBE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 6.5c4 2 10 2 14 0M5 17.5c4-2 10-2 14 0"/></svg>'
+ZOOM_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7"/><path d="m16 16 5 5M7 10.5h7M10.5 7v7"/></svg>'
 
 
 def header(active=''):
@@ -64,6 +66,7 @@ def document(title, body_class, content, *, active='', extra_css='', theme='', d
   <link rel="preload" as="image" href="assets/img/arena-night-mobile.webp" media="(max-width:760px)">
   {extra_css}<link rel="stylesheet" href="assets/css/complete.css?v={ASSET_VERSION}">
   <link rel="stylesheet" href="assets/css/team-themes.css?v={ASSET_VERSION}">
+  <link rel="stylesheet" href="assets/css/immersive.css?v={ASSET_VERSION}">
 </head>
 <body class="{body_class}"{f' data-team-theme="{theme}"' if theme else ''}>
   {header(active)}
@@ -96,10 +99,11 @@ def team_page(team, index):
     cards = '\n          '.join(player_card(p) for p in roster)
     content = f'''<main id="main" class="page-wrap">
     <nav class="breadcrumbs" aria-label="現在位置"><a class="back-link" href="index.html">← マップへ戻る</a><a href="all-teams.html">全30チーム</a><span>/</span><span>{E(team['abbreviation'])}</span></nav>
-    <section class="team-header" aria-labelledby="team-title"><div class="badge"><img src="{team['logo']}" alt="{E(team['name'])} ロゴ" width="160" height="160" fetchpriority="high"></div><div class="team-heading-copy"><span class="team-tag">NBA · {E(team['abbreviation'])}</span><h1 id="team-title">{E(team['name'])}</h1><p class="team-jp">{E(team['jp'])}</p><div class="meta">{conference.upper()} / {team['division'].upper()}</div></div></section>
-    <section class="team-info-strip" aria-label="チーム情報"><dl class="facts">{fact('本拠地', team.get('home_city_ja', team['home_city']), LOCATION_ICON)}{fact('アリーナ', team['arena'], ARENA_ICON)}</dl><a class="official-link" href="{E(team['source_urls'][0])}" target="_blank" rel="noopener noreferrer">NBA公式へ ↗</a></section>
-      <section class="roster-section" aria-labelledby="roster-title"><div class="roster-toolbar"><div class="roster-heading"><h2 id="roster-title">選手一覧</h2><span>{len(roster)} PLAYERS</span></div>
-        <div class="roster-tools"><div class="filter-field grow"><label class="sr-only" for="roster-filter">選手名・背番号で検索</label><input type="search" id="roster-filter" placeholder="選手名・背番号で検索" autocomplete="off"></div><div class="filter-field"><label class="sr-only" for="position-filter">ポジション</label><select id="position-filter"><option value="">全ポジション</option><option value="G">ガード（G）</option><option value="F">フォワード（F）</option><option value="C">センター（C）</option></select></div></div></div>
+    <section class="team-header" aria-labelledby="team-title"><div class="badge"><img src="{team['logo']}" alt="{E(team['name'])} ロゴ" width="160" height="160" fetchpriority="high"></div><div class="team-heading-copy"><span class="team-tag">NBA · {E(team['abbreviation'])}</span><h1 id="team-title">{E(team['name'])}</h1><p class="team-jp">{E(team['jp'])}</p><div class="team-chips"><span>{LOCATION_ICON}{E(team.get('home_city_ja', team['home_city']))}</span><span>{ARENA_ICON}{E(team['arena'])}</span></div></div></section>
+    <div class="team-tabs" data-team-tabs role="tablist" aria-label="チームページの表示" hidden><button type="button" id="team-tab-info" role="tab" data-team-tab="info" aria-controls="team-info" aria-selected="false" tabindex="-1">チーム情報</button><button type="button" id="team-tab-players" role="tab" data-team-tab="players" aria-controls="team-players" aria-selected="true">選手</button></div>
+    <section class="team-info-panel" id="team-info" role="tabpanel" aria-labelledby="team-tab-info" tabindex="0"><h2 class="panel-heading">チーム情報</h2><div class="team-info-strip"><dl class="facts">{fact('本拠地', team.get('home_city_ja', team['home_city']), LOCATION_ICON)}{fact('アリーナ', team['arena'], ARENA_ICON)}</dl><a class="official-link" href="{E(team['source_urls'][0])}" target="_blank" rel="noopener noreferrer">NBA公式へ ↗</a></div><dl class="team-context"><div class="fact"><dt>カンファレンス</dt><dd>{conference} Conference</dd></div><div class="fact"><dt>ディビジョン</dt><dd>{E(team['division'])}</dd></div><div class="fact"><dt>掲載選手</dt><dd>{len(roster)}名 · {DATE}取得</dd></div></dl></section>
+      <section class="roster-section" id="team-players" role="tabpanel" aria-labelledby="team-tab-players" tabindex="0"><div class="roster-toolbar"><div class="roster-heading"><h2 id="roster-title">選手一覧</h2><span>{len(roster)} PLAYERS</span></div>
+        <details class="roster-refine"><summary>{SEARCH_ICON}<span>絞り込み</span></summary><div class="roster-tools"><div class="filter-field grow"><label for="roster-filter">選手名・背番号</label><input type="search" id="roster-filter" placeholder="選手名・背番号で検索" autocomplete="off"></div><div class="filter-field"><label for="position-filter">ポジション</label><select id="position-filter"><option value="">全ポジション</option><option value="G">ガード（G）</option><option value="F">フォワード（F）</option><option value="C">センター（C）</option></select></div></div></details></div>
         <div class="roster-meta"><p class="roster-count" id="roster-count" role="status" aria-live="polite">{len(roster)} / {len(roster)} 選手を表示</p><p class="roster-date">NBA公式掲載 · {DATE}取得</p></div>
         <div class="players" id="team-roster" data-team="{team['id']}">
           {cards}
@@ -116,7 +120,7 @@ def home():
     by_abbr = {t['abbreviation']: t for t in TEAMS}
     pins = '\n          '.join(f'<div class="pin pin-{by_abbr[a]["pin"]}"><a class="label" href="{by_abbr[a]["page"]}" data-label="{E(by_abbr[a]["jp"])}" aria-label="{E(by_abbr[a]["jp"])}のチームページ"><img src="{by_abbr[a]["logo"]}" alt="{E(by_abbr[a]["name"])}" width="52" height="52"></a></div>' for a in order)
     content = f'''<main id="main">
-    <section class="home-mappu" aria-label="マップからチームを選ぶ"><div class="map-controls" data-map-controls role="group" aria-label="地図の表示" hidden><span>マップ</span><div><button type="button" data-map-view="fit" aria-pressed="true">全体</button><button type="button" data-map-view="zoom" aria-pressed="false">拡大</button></div></div><div class="map-frame"><div class="map-scroll" tabindex="0" role="region" aria-label="NBAチームの地図"><div class="map"><img src="assets/img/usa-arena.svg" alt="アメリカ合衆国の地図。本拠地の位置は概略です" width="7306" height="4548">
+    <section class="home-mappu" aria-label="マップからチームを選ぶ"><div class="map-controls" data-map-controls role="group" aria-label="地図の表示" hidden><span>マップ</span><div><button type="button" data-map-view="fit" aria-pressed="true">{GLOBE_ICON}全体</button><button type="button" data-map-view="zoom" aria-pressed="false">{ZOOM_ICON}拡大</button></div></div><div class="map-frame"><div class="map-scroll" tabindex="0" role="region" aria-label="NBAチームの地図"><div class="map"><img src="assets/img/usa-arena.svg" alt="アメリカ合衆国の地図。本拠地の位置は概略です" width="7306" height="4548">
           {pins}
     </div></div></div><div class="map-caption"><span>全30チームのロゴからページを開けます。</span><span class="map-mobile-help" id="map-mobile-help" role="status" aria-live="polite">ロゴをタップ。選びにくいときは「拡大」。</span></div></section>
   </main>'''

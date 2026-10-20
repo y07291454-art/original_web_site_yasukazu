@@ -1,0 +1,107 @@
+/* Selected arena concept: quiet glass controls, bright badges and large portraits. */
+:root { --surface:#081424d9; --muted:#b8c6d8; }
+body::before { filter:blur(1.6px); }
+body::after { background:radial-gradient(ellipse at 12% 24%,rgb(var(--primary-rgb)/.2),transparent 60%),linear-gradient(180deg,#030b166b,#06101ab8 48%,#040c18e8); }
+.home-page::after { background:linear-gradient(180deg,#030b1666,#030c1775 58%,#030b178f); }
+.site-header { width:min(1240px,calc(100% - 40px)); margin:14px auto 0; border:1px solid #c9dcf02e; border-radius:22px; background:#071321cf; box-shadow:0 8px 30px #0003,inset 0 1px 0 #ffffff0a; -webkit-backdrop-filter:blur(20px); backdrop-filter:blur(20px); }
+.header-bar { height:66px; padding:0 18px; gap:20px; }
+.logo { font-size:21px; font-weight:750; letter-spacing:-.7px; }
+.logo .amp { color:inherit; padding:0 3px; }
+.icon-button { border-radius:50%; border-color:#d1e2fa3b; background:#06111b47; }
+.icon-button:hover { background:#ffffff14; }
+.header-links a { border-bottom:0; }
+.mobile-menu { top:calc(100% + 8px); right:0; border-radius:18px; background:#071322f5; -webkit-backdrop-filter:blur(20px); backdrop-filter:blur(20px); }
+.breadcrumbs { padding-top:18px; margin-bottom:6px; }
+.breadcrumbs .back-link { min-height:44px; padding:5px 13px; border:1px solid #c9dcf038; border-radius:22px; background:#061322b8; }
+.team-header { gap:30px; padding:20px 0 28px; background:radial-gradient(ellipse at 14% 40%,rgb(var(--primary-rgb)/.28),transparent 68%); }
+.team-header .badge { width:174px; height:174px; padding:18px; box-shadow:0 8px 28px #0006,0 0 22px rgb(var(--primary-rgb)/.18); }
+.team-header h1 { color:var(--accent); font-size:clamp(36px,4.6vw,62px); line-height:1.04; letter-spacing:.3px; }
+.team-tag { color:#c2cddd; }
+.team-jp { font-size:15px; }
+.team-chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:13px; }
+.team-chips>span { display:inline-flex; align-items:center; max-width:100%; gap:7px; padding:6px 11px; border:1px solid #c9dcf02e; border-radius:18px; background:#061322b8; color:#f1f5fc; font-size:12px; line-height:1.5; overflow-wrap:anywhere; }
+.team-chips svg { width:16px; height:16px; flex-shrink:0; color:var(--accent); }
+.team-tabs { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px; margin:0 0 24px; padding:4px; border:1px solid #c9dcf038; border-radius:16px; background:#081424cf; -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); }
+.team-tabs button { min-height:50px; padding:10px 16px; border:1px solid transparent; border-radius:12px; background:transparent; color:#dce5f2; font-size:16px; font-weight:750; }
+.team-tabs button[aria-selected=true] { border-color:var(--accent); color:#fff; background:color-mix(in srgb,var(--accent) 17%,#071424); box-shadow:inset 0 0 18px color-mix(in srgb,var(--accent) 14%,transparent); }
+.team-tabs button:hover { background-color:#ffffff12; }
+.panel-heading { margin:0 0 18px; font-size:26px; }
+.team-info-strip { border-color:#c9dcf038; border-radius:16px; margin-bottom:16px; }
+.team-context { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; margin:0; padding:20px; border:1px solid #c9dcf02e; border-radius:16px; background:var(--surface); }
+.team-page .roster-toolbar { position:relative; display:flex; flex-direction:row; align-items:center; gap:14px; }
+.roster-heading { flex-shrink:1; }
+.roster-heading h2 { padding-left:0; border:0; font-size:28px; }
+.roster-refine { flex-shrink:0; }
+.roster-refine summary { display:flex; justify-content:center; align-items:center; min-height:44px; gap:7px; padding:8px 13px; border:1px solid #c9dcf038; border-radius:22px; background:#061322cf; color:#f3f7fd; font-size:12px; font-weight:650; cursor:pointer; list-style:none; }
+.roster-refine summary::-webkit-details-marker { display:none; }
+.roster-refine summary svg { width:17px; height:17px; }
+.roster-refine[open] summary { border-color:var(--accent); }
+.roster-refine .roster-tools { position:absolute; top:calc(100% + 10px); right:0; z-index:8; display:grid; grid-template-columns:minmax(0,1fr) minmax(145px,.8fr); width:min(540px,calc(100vw - 28px)); max-width:none; padding:18px; border:1px solid #c9dcf04d; border-radius:16px; background:#071423fa; box-shadow:0 14px 36px #0009; }
+.roster-meta { padding:9px 0 15px; }
+.players { gap:18px; }
+.card { border-color:#c9dcf035; border-radius:14px; background:#07111edb; box-shadow:0 6px 22px #0003; }
+.thumb { aspect-ratio:4/4.6; background:radial-gradient(ellipse at 50% 28%,rgb(var(--primary-rgb)/.35),#07111e 80%); }
+.thumb::after { background:linear-gradient(transparent,#07111e); }
+.jersey { top:11px; left:10px; font-size:22px; }
+.jersey small { font-size:10px; }
+.card-copy { padding:13px 13px 10px; }
+.name { font-size:18px; }
+.card-action { color:#cbd7e8; }
+.player-portrait,.player-details,.player-number,.team-card,.directory-tools { border-color:#c9dcf035; background-color:#07111edb; }
+.search-dialog { border-radius:22px; background:#071322f5; -webkit-backdrop-filter:blur(20px); backdrop-filter:blur(20px); }
+.home-page { grid-template-rows:auto minmax(0,1fr); }
+.home-page .site-footer,.map-caption { display:none; }
+.home-mappu { padding:12px 24px 16px; }
+.map-frame { padding:0; border:0; border-radius:0; background:transparent; }
+.map-scroll { border-radius:0; }
+.map>img { filter:brightness(1.12) saturate(1.12) drop-shadow(0 0 12px #5eabff1f); }
+.pin .label { border-color:#ffd07c; box-shadow:0 3px 12px #0009,0 0 0 1px #f1c47520; }
+.pin .label:hover,.pin .label:focus-visible { box-shadow:0 0 0 3px #ffb04b55,0 6px 18px #0009; }
+@media(max-width:760px) {
+  .site-header { position:sticky; top:max(8px,env(safe-area-inset-top,0px)); width:auto; margin:max(8px,env(safe-area-inset-top,0px)) max(8px,env(safe-area-inset-right,0px)) 0 max(8px,env(safe-area-inset-left,0px)); padding-top:0; border-radius:20px; }
+  .header-bar,.home-page .header-bar { height:56px; padding:0 10px; gap:8px; }
+  .logo { gap:7px; font-size:16px; letter-spacing:-.7px; }
+  .brand-ball { width:27px; height:27px; }
+  .header-links+.icons { gap:5px; }
+  .icon-button { padding:10px; }
+  .breadcrumbs { padding-top:13px; margin-bottom:4px; }
+  .breadcrumbs .back-link { padding:4px 12px; }
+  .team-header { gap:16px; padding:14px 0 21px; align-items:center; }
+  .team-header .badge { width:112px; height:112px; padding:12px; border-width:2px; }
+  .team-header h1 { margin:4px 0 7px; font-size:clamp(26px,7.1vw,42px); }
+  .team-header .team-jp { font-size:12px; }
+  .team-tag { font-size:9px; letter-spacing:1.6px; }
+  .team-chips { gap:6px; margin-top:10px; }
+  .team-chips>span { gap:5px; padding:5px 8px; border-radius:14px; font-size:10px; }
+  .team-chips svg { width:14px; height:14px; }
+  .team-tabs { margin-bottom:20px; padding:3px; border-radius:14px; }
+  .team-tabs button { min-height:46px; border-radius:11px; font-size:14px; }
+  .panel-heading { font-size:23px; }
+  .team-context { grid-template-columns:minmax(0,1fr); gap:15px; padding:17px; }
+  .roster-heading h2 { font-size:24px; }
+  .roster-heading>span { font-size:9px; }
+  .roster-refine summary { padding:8px 11px; font-size:11px; }
+  .roster-refine .roster-tools { grid-template-columns:minmax(0,1fr); gap:14px; padding:16px; }
+  .roster-meta { gap:3px 10px; padding:7px 0 12px; }
+  .roster-count,.roster-date { font-size:9px; }
+  .players { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+  .thumb { aspect-ratio:4/4.8; }
+  .jersey { top:10px; left:9px; font-size:20px; }
+  .card-copy { padding:11px 10px 8px; }
+  .name { font-size:16px; }
+  .home-mappu { padding:0 max(4px,env(safe-area-inset-right,0px)) env(safe-area-inset-bottom,0px) max(4px,env(safe-area-inset-left,0px)); }
+  .map-scroll { padding-top:clamp(12px,3dvh,26px); }
+  .map-controls>div { gap:3px; padding:4px; border-color:#d1e2fa47; border-radius:28px; background:#071321cf; box-shadow:0 4px 20px #0005; -webkit-backdrop-filter:blur(18px); backdrop-filter:blur(18px); }
+  .map-controls button { display:inline-flex; justify-content:center; align-items:center; gap:6px; min-width:68px; min-height:44px; border:1px solid transparent; border-radius:24px; color:#eef3fa; font-size:12px; }
+  .map-controls button svg { width:17px; height:17px; }
+  .map-controls button[aria-pressed=true] { border-color:#ffd07c; background:#c27f2429; color:#ffcf7b; box-shadow:inset 0 0 12px #ffb04b20; }
+  .pin .label { box-shadow:0 2px 8px #0009,0 0 0 1px #f1c47520; }
+}
+@media(max-width:360px) {
+  .logo { font-size:13px; }
+  .brand-ball { width:24px; height:24px; }
+  .team-header { gap:12px; }
+  .team-header .badge { width:94px; height:94px; padding:10px; }
+  .team-header h1 { font-size:25px; }
+  .roster-heading>span { display:none; }
+}
