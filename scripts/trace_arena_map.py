@@ -158,7 +158,7 @@ def main():
     coast_d = "".join(path_data(points, scale, True) for points in outlines)
     states_d = "".join(path_data(points, scale) for points in states)
     svg = (
-        '<svg xmlns="http://www.w3.org/2000/svg" width="7306" height="4548" viewBox="0 0 7306 4548">\n'
+        '<svg xmlns="http://www.w3.org/2000/svg" width="7306" height="4548" viewBox="0 0 7306 4548" preserveAspectRatio="none">\n'
         '<!-- Traced from amerika-tizu.jpg; original coordinate frame retained. -->\n'
         f'<path d="{coast_d}" fill="#102a40" fill-rule="evenodd"/>\n'
         f'<path d="{states_d}" fill="none" stroke="#416786" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>\n'

@@ -12,9 +12,10 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = json.loads((ROOT / 'assets/data/nba.json').read_text())
 TEAMS = DATA['teams']
 PLAYERS = DATA['players']
+STATS = json.loads((ROOT / 'assets/data/player-stats.json').read_text())
 E = lambda value: escape(str(value), quote=True)
 DATE = DATA['updated_at'].replace('-', '/')
-ASSET_VERSION = '20261020-immersive-11'
+ASSET_VERSION = '20261020-stats-map-12'
 # Display accents complement the checked-in team colors on dark surfaces.
 TEAM_ACCENTS = {
     'BOS':'#9bddac','BKN':'#e9edf5','NYK':'#ffa15d','PHI':'#7fbdff','TOR':'#ff7b94',
@@ -47,11 +48,12 @@ def header(active=''):
   </div><nav class="mobile-menu" id="mobile-menu" aria-label="モバイルナビゲーション" hidden><a href="index.html">マップ</a><a href="all-teams.html">全30チーム</a></nav></header>'''
 
 
-def footer(compact=False):
+def footer(compact=False, with_stats=False):
     credits = f'<span>NBA非公式ファンサイト</span><span>選手情報：<a href="https://www.nba.com/players" target="_blank" rel="noopener noreferrer">NBA.com</a> · {DATE}</span>' if compact else f'<span class="footer-brand">NBA Teams &amp; Players</span><span>選手情報：<a href="https://www.nba.com/players" target="_blank" rel="noopener noreferrer">NBA.com</a> · {DATE}取得<br>NBA・各チームの非公式ファンサイト</span>'
+    stats_scripts = f'<script src="assets/js/player-stats-data.js?v={ASSET_VERSION}" defer></script><script src="assets/js/stats.js?v={ASSET_VERSION}" defer></script>' if with_stats else ''
     return f'''<footer class="site-footer">{credits}</footer>
   <dialog class="search-dialog" id="site-search" aria-labelledby="search-title"><div class="search-top"><h2 id="search-title">チーム・選手を探す</h2><button class="close-button" type="button" data-close-search aria-label="検索を閉じる">×</button></div><div class="search-field"><label for="site-search-input">チーム名・略称・選手名</label><input id="site-search-input" type="search" placeholder="例：レイカーズ / DAL / Curry" autocomplete="off"></div><p class="search-status" id="search-status" role="status" aria-live="polite">チーム名・略称・選手名で検索できます。</p><div class="search-results" id="search-results"></div></dialog>
-  <script src="assets/js/nba-data.js" defer></script><script src="assets/js/filters.js" defer></script><script src="assets/js/app.js?v={ASSET_VERSION}" defer></script>'''
+  <script src="assets/js/nba-data.js" defer></script><script src="assets/js/filters.js" defer></script>{stats_scripts}<script src="assets/js/app.js?v={ASSET_VERSION}" defer></script>'''
 
 
 def document(title, body_class, content, *, active='', extra_css='', theme='', description=''):
@@ -67,11 +69,12 @@ def document(title, body_class, content, *, active='', extra_css='', theme='', d
   {extra_css}<link rel="stylesheet" href="assets/css/complete.css?v={ASSET_VERSION}">
   <link rel="stylesheet" href="assets/css/team-themes.css?v={ASSET_VERSION}">
   <link rel="stylesheet" href="assets/css/immersive.css?v={ASSET_VERSION}">
+  <link rel="stylesheet" href="assets/css/stats.css?v={ASSET_VERSION}">
 </head>
 <body class="{body_class}"{f' data-team-theme="{theme}"' if theme else ''}>
   {header(active)}
   {content}
-  {footer(compact=body_class == 'home-page')}
+  {footer(compact=body_class == 'home-page', with_stats=body_class == 'player-page')}
 </body>
 </html>
 '''
@@ -84,7 +87,15 @@ def write(name, content):
 def player_card(player):
     name = E(player['name'])
     number = f'#{E(player["number"])}' if player['number'] else ''
-    return f'''<article class="card" data-player-id="{player['id']}"><a class="card-link" href="player.html?id={player['id']}" aria-label="{name}のプロフィール"><div class="thumb"><div class="jersey">{number}<small>{E(player['position'] or 'PLAYER')}</small></div><img src="https://cdn.nba.com/headshots/nba/latest/1040x760/{player['id']}.png" srcset="https://cdn.nba.com/headshots/nba/latest/260x190/{player['id']}.png 260w, https://cdn.nba.com/headshots/nba/latest/1040x760/{player['id']}.png 1040w" sizes="(max-width:760px) calc((100vw - 40px)/2), (max-width:1050px) 30vw, 285px" alt="{name}" width="1040" height="760" loading="lazy" decoding="async" onerror="this.onerror=null;this.removeAttribute('srcset');this.src='assets/img/player-placeholder.svg'"></div><div class="card-copy"><h3 class="name">{name}</h3>{f'<p class="pos">{E(player["jp"])}</p>' if player.get('jp') else ''}<span class="card-action">プロフィール <span aria-hidden="true">→</span></span></div></a></article>'''
+    latest = STATS['seasons'][0]
+    record = latest['players'].get(str(player['id']))
+    if record:
+        value = lambda key: f'{record[key]:.1f}' if isinstance(record[key], (int, float)) else '—'
+        values = ''.join(f'<div><dt><abbr title="{label}">{key}</abbr></dt><dd>{value(key)}</dd></div>' for key, label in [('PTS', '得点'), ('REB', 'リバウンド'), ('AST', 'アシスト')])
+        stat_line = f'<dl class="card-stats">{values}</dl><p class="card-stats-season">{latest["id"]} · 1試合平均</p>'
+    else:
+        stat_line = f'<p class="card-stats-missing">{latest["id"]}：NBA公式記録なし</p>'
+    return f'''<article class="card" data-player-id="{player['id']}"><a class="card-link" href="player.html?id={player['id']}" aria-label="{name}のプロフィール"><div class="thumb"><div class="jersey">{number}<small>{E(player['position'] or 'PLAYER')}</small></div><img src="https://cdn.nba.com/headshots/nba/latest/1040x760/{player['id']}.png" srcset="https://cdn.nba.com/headshots/nba/latest/260x190/{player['id']}.png 260w, https://cdn.nba.com/headshots/nba/latest/1040x760/{player['id']}.png 1040w" sizes="(max-width:760px) calc((100vw - 40px)/2), (max-width:1050px) 30vw, 285px" alt="{name}" width="1040" height="760" loading="lazy" decoding="async" onerror="this.onerror=null;this.removeAttribute('srcset');this.src='assets/img/player-placeholder.svg'"></div><div class="card-copy"><h3 class="name">{name}</h3>{f'<p class="pos">{E(player["jp"])}</p>' if player.get('jp') else ''}{stat_line}<span class="card-action">プロフィール <span aria-hidden="true">→</span></span></div></a></article>'''
 
 
 def sorted_roster(team):
@@ -169,6 +180,7 @@ def main():
     if kyrie:
         write('kyrie.html', player_page(str(kyrie['id'])))
     (ROOT / 'assets/js/nba-data.js').write_text('// Official NBA.com roster snapshot; see assets/data/nba.json.\nwindow.NBA_DATA=' + json.dumps(DATA, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/') + ';\n')
+    (ROOT / 'assets/js/player-stats-data.js').write_text('// Official NBA Stats snapshot; see assets/data/player-stats.json.\nwindow.NBA_PLAYER_STATS=' + json.dumps(STATS, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/') + ';\n')
     print(f'Generated 30 team pages, map, directory and profiles for {len(PLAYERS)} players.')
 
 

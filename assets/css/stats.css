@@ -1,0 +1,47 @@
+.card-stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; margin:12px 0 0; padding-top:10px; border-top:1px solid var(--line); }
+.card-stats>div { min-width:0; }
+.card-stats dt { color:var(--muted); font-size:10px; line-height:1.2; letter-spacing:.5px; }
+.card-stats abbr { text-decoration:none; }
+.card-stats dd { margin:4px 0 0; color:#f5f8ff; font-size:20px; font-weight:800; line-height:1.2; font-variant-numeric:tabular-nums; }
+.card-stats-season,.card-stats-missing { margin:8px 0 11px; color:var(--muted); font-size:9px; line-height:1.5; }
+.card-stats-missing { min-height:57px; padding-top:13px; border-top:1px solid var(--line); }
+.player-stats { margin:25px 0; padding:20px; border:1px solid #c9dcf038; border-radius:18px; background:#071322dc; }
+.stats-header { display:flex; align-items:center; justify-content:space-between; gap:14px; }
+.stats-header h2 { margin:3px 0 0; font-size:23px; line-height:1.3; }
+.stats-header .team-tag { font-size:9px; }
+.stats-season { display:flex; flex-direction:column; gap:4px; flex-shrink:0; }
+.stats-season label { color:var(--muted); font-size:10px; }
+.stats-season select { min-height:44px; max-width:100%; padding:8px 29px 8px 12px; border:1px solid #c9dcf05e; border-radius:10px; background:#09182a; color:#f5f8ff; font-size:16px; }
+.stats-scope { margin:15px 0 12px; color:var(--muted); font-size:11px; }
+.stats-primary { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin:0 0 12px; }
+.stats-primary>div { min-width:0; padding:15px 10px; border:1px solid #c9dcf02e; border-radius:12px; background:radial-gradient(ellipse at 50% 0,rgb(var(--primary-rgb)/.3),#0b18294d); }
+.stats-primary dt { color:#edf3fc; font-size:12px; }
+.stats-primary small,.stats-secondary small { display:block; margin-top:3px; color:var(--muted); font-size:9px; line-height:1.3; letter-spacing:.8px; }
+.stats-primary dd { margin:9px 0 0; color:var(--accent); font-size:36px; font-weight:850; line-height:1.1; font-variant-numeric:tabular-nums; }
+.stats-secondary { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:0; }
+.stats-secondary>div { min-width:0; padding:11px 5px; border-bottom:1px solid var(--line); }
+.stats-secondary dt { color:#d2deed; font-size:10px; overflow-wrap:anywhere; }
+.stats-secondary dd { margin:7px 0 0; color:#f7f9ff; font-size:20px; font-weight:750; font-variant-numeric:tabular-nums; }
+.stats-note { margin:15px 0 0; color:var(--muted); font-size:10px; }
+.stats-source { display:flex; flex-wrap:wrap; justify-content:space-between; gap:7px; margin:13px 0 0; color:var(--muted); font-size:10px; }
+.stats-source a { color:#e4edf9; text-underline-offset:3px; }
+.stats-empty { padding:25px 12px; border:1px dashed #c9dcf038; border-radius:12px; text-align:center; }
+.stats-empty p { margin:0 0 7px; color:#e7eef9; font-size:13px; }
+.stats-empty span { color:var(--muted); font-size:11px; }
+@media(max-width:760px) {
+  .card-stats { gap:5px; margin-top:10px; padding-top:9px; }
+  .card-stats dt { font-size:9px; }
+  .card-stats dd { font-size:18px; }
+  .player-stats { margin:22px 0; padding:15px; }
+  .stats-header h2 { font-size:21px; }
+  .stats-primary { gap:8px; }
+  .stats-primary>div { padding:13px 8px; }
+  .stats-primary dt { font-size:10px; }
+  .stats-primary dd { font-size:30px; }
+  .stats-secondary { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 16px; }
+}
+@media(max-width:360px) {
+  .stats-header { gap:8px; }
+  .stats-header h2 { font-size:18px; }
+  .stats-primary dd { font-size:26px; }
+}

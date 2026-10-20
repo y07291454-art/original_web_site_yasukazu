@@ -90,7 +90,9 @@ body::after { background:radial-gradient(ellipse at 12% 24%,rgb(var(--primary-rg
   .card-copy { padding:11px 10px 8px; }
   .name { font-size:16px; }
   .home-mappu { padding:0 max(4px,env(safe-area-inset-right,0px)) env(safe-area-inset-bottom,0px) max(4px,env(safe-area-inset-left,0px)); }
-  .map-scroll { padding-top:clamp(12px,3dvh,26px); }
+  .map-scroll { align-items:center; padding-top:12px; }
+  .home-page:not([data-map-view=zoom]) .map { height:min(100cqh,105cqw); aspect-ratio:auto; }
+  .home-page:not([data-map-view=zoom]) .map>img { height:100%; }
   .map-controls>div { gap:3px; padding:4px; border-color:#d1e2fa47; border-radius:28px; background:#071321cf; box-shadow:0 4px 20px #0005; -webkit-backdrop-filter:blur(18px); backdrop-filter:blur(18px); }
   .map-controls button { display:inline-flex; justify-content:center; align-items:center; gap:6px; min-width:68px; min-height:44px; border:1px solid transparent; border-radius:24px; color:#eef3fa; font-size:12px; }
   .map-controls button svg { width:17px; height:17px; }

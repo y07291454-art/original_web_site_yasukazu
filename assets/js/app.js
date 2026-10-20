@@ -192,6 +192,9 @@
       ? `${esc(player.draft_year)}年${player.draft_round ? ` · ${esc(player.draft_round)}巡目` : ''}${player.draft_number ? ` ${esc(player.draft_number)}位` : ''}`
       : 'ドラフト外／公式未掲載';
     const fact = (label, value) => `<div class="fact"><dt>${label}</dt><dd>${value}</dd></div>`;
+    const statsData = window.NBA_PLAYER_STATS;
+    const statsUI = window.NBA_STATS;
+    const statsSection = statsData && statsUI ? statsUI.renderSection(statsData, player.id) : '<p class="player-note">スタッツを読み込めませんでした。NBA公式プロフィールから確認できます。</p>';
     playerRoot.innerHTML = `
       <nav class="breadcrumbs" aria-label="現在位置"><a href="index.html">マップ</a><span>/</span><a href="${team.page}">${esc(team.name)}</a><span>/</span><span>${esc(player.name)}</span></nav>
       <section class="player-hero">
@@ -199,11 +202,21 @@
         <div class="player-about"><span class="team-tag">${esc(player.position || 'PLAYER')}${player.number ? ` · #${esc(player.number)}` : ''}</span>
           <h1>${esc(player.name)}</h1>${player.jp ? `<p class="player-note">${esc(player.jp)}</p>` : ''}
           <a class="player-team-link" href="${team.page}"><img src="${team.logo}" alt="">${esc(team.name)} →</a>
+          ${statsSection}
           <dl class="player-numbers"><div class="player-number"><dt>背番号</dt><dd>${esc(player.number || '—')}</dd></div><div class="player-number"><dt>身長</dt><dd>${height ? height + '<small> cm</small>' : '—'}</dd></div><div class="player-number"><dt>体重</dt><dd>${weight ? weight + '<small> kg</small>' : '—'}</dd></div></dl>
           <dl class="player-details">${fact('ポジション', esc(player.position || '公式未掲載'))}${fact('出身国', esc(player.country || '公式未掲載'))}${fact('出身校・所属', esc(player.college || '公式未掲載'))}${fact('ドラフト', draft)}</dl>
           <a class="pill-link" href="https://www.nba.com/player/${player.id}/${esc(player.slug)}" target="_blank" rel="noopener noreferrer">NBA公式プロフィール ↗</a>
           <p class="player-note">NBA.com掲載情報 · ${esc(data.updated_at)}取得。身長・体重は公式値から換算。</p>
         </div>
       </section>`;
+    const statsSeason = document.getElementById('stats-season');
+    const statsMetrics = document.getElementById('player-stats-metrics');
+    const statsOfficial = document.getElementById('stats-official-link');
+    if (statsSeason && statsMetrics && statsData && statsUI) {
+      statsSeason.addEventListener('change', () => {
+        statsMetrics.innerHTML = statsUI.renderMetrics(statsUI.getRecord(statsData, player.id, statsSeason.value));
+        if (statsOfficial) statsOfficial.href = statsUI.sourceUrl(player.id, statsSeason.value);
+      });
+    }
   }
 })();
