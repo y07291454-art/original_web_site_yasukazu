@@ -130,26 +130,13 @@ def home():
     # The SVG retains the original map coordinate frame and team logo assets.
     order = ['POR', 'GSW', 'SAC', 'LAL', 'LAC', 'PHX', 'UTA', 'DEN', 'OKC', 'DAL', 'SAS', 'HOU', 'NOP', 'MEM', 'MIN', 'MIL', 'CHI', 'IND', 'DET', 'CLE', 'WAS', 'ATL', 'CHA', 'ORL', 'MIA', 'PHI', 'BKN', 'NYK', 'BOS', 'TOR']
     by_abbr = {t['abbreviation']: t for t in TEAMS}
-    pins = '\n          '.join(f'<div class="pin pin-{by_abbr[a]["pin"]}" data-conference="{E(by_abbr[a]["conference"])}"><a class="label" href="{by_abbr[a]["page"]}" data-label="{E(by_abbr[a]["jp"])}" aria-label="{E(by_abbr[a]["jp"])}のチームページ"><img src="{by_abbr[a]["logo"]}" alt="{E(by_abbr[a]["name"])}" width="52" height="52"></a></div>' for a in order)
+    pins = '\n          '.join(f'<div class="pin pin-{by_abbr[a]["pin"]}"><a class="label" href="{by_abbr[a]["page"]}" data-label="{E(by_abbr[a]["jp"])}" aria-label="{E(by_abbr[a]["jp"])}のチームページ"><img src="{by_abbr[a]["logo"]}" alt="{E(by_abbr[a]["name"])}" width="52" height="52"></a></div>' for a in order)
     content = f'''<main id="main">
-    <section class="home-mappu" aria-labelledby="arena-title">
-      <div class="arena-intro">
-        <span class="arena-kicker">COURTSIDE ATLAS<span aria-hidden="true"> / </span>NBA</span>
-        <h1 id="arena-title">NBAチームマップ</h1>
-        <p>ロゴからチーム、選手、本拠地を探す。</p>
-        <div class="arena-filters" data-arena-filters role="group" aria-label="カンファレンスで絞り込む" hidden>
-          <button type="button" data-arena-filter="all" aria-pressed="true" aria-controls="arena-map">全30</button>
-          <button type="button" data-arena-filter="East" aria-pressed="false" aria-controls="arena-map">東</button>
-          <button type="button" data-arena-filter="West" aria-pressed="false" aria-controls="arena-map">西</button>
-        </div>
-        <p class="arena-count" data-arena-count role="status">30チームを表示中</p>
-        <a class="arena-directory" href="all-teams.html">チーム一覧 <span aria-hidden="true">→</span></a>
-      </div>
-      <div class="map-controls" data-map-controls role="group" aria-label="地図の表示" hidden><span>マップ</span><div><button type="button" data-map-view="fit" aria-pressed="true">{GLOBE_ICON}全体</button><button type="button" data-map-view="zoom" aria-pressed="false">{ZOOM_ICON}拡大</button></div></div><div class="map-frame"><div class="map-scroll" id="arena-map" tabindex="0" role="region" aria-label="NBAチームの地図"><div class="map"><img src="assets/img/usa-arena.svg" alt="北米の地図。本拠地の位置は概略です" width="7306" height="4548">
+    <section class="home-mappu" aria-label="マップからチームを選ぶ"><div class="map-controls" data-map-controls role="group" aria-label="地図の表示" hidden><span>マップ</span><div><button type="button" data-map-view="fit" aria-pressed="true">{GLOBE_ICON}全体</button><button type="button" data-map-view="zoom" aria-pressed="false">{ZOOM_ICON}拡大</button></div></div><div class="map-frame"><div class="map-scroll" tabindex="0" role="region" aria-label="NBAチームの地図"><div class="map"><img src="assets/img/usa-arena.svg" alt="北米の地図。本拠地の位置は概略です" width="7306" height="4548">
           {pins}
     </div></div></div><div class="map-caption"><span>全30チームのロゴからページを開けます。</span><span class="map-mobile-help" id="map-mobile-help" role="status" aria-live="polite">ロゴをタップ。選びにくいときは「拡大」。</span></div></section>
   </main>'''
-    return document('NBA全30チームを地図で探す', 'home-page', content, active='map', extra_css=f'<link rel="stylesheet" href="assets/css/style.css?v={ASSET_VERSION}"><link rel="stylesheet" href="assets/css/arena-atlas.css?v=1"><script src="assets/js/arena-atlas.js?v=1" defer></script>')
+    return document('NBA全30チームを地図で探す', 'home-page', content, active='map', extra_css=f'<link rel="stylesheet" href="assets/css/style.css?v={ASSET_VERSION}"><link rel="stylesheet" href="assets/css/arena-atlas.css?v=2">')
 
 
 def directory():
